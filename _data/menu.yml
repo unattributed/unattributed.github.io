@@ -1,0 +1,32 @@
+entries:
+  - title: info
+    entries:
+      - title: An anonymous cybersecurity blog sharing walkthroughs and insights—no attribution, just knowledge.
+      - title: about
+        url: about
+      
+  - title: all posts
+    post_list:
+      limit: 6
+      show_more: true
+      show_more_text: See archive...
+      show_more_url: archive.html
+
+  - title: posts - Java
+    post_list:
+      category: Java
+      limit: 2
+      show_more: false
+      show_more_text: See more posts...
+      show_more_url: java-archive.md
+  
+  - title: posts - Yara
+    post_list:
+      category: Yara
+      limit: 2
+      show_more: false
+      show_more_text: See more posts...
+      show_more_url: yara-archive.md
+      
+  - title: rss
+    url: feed.xml
