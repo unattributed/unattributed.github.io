@@ -61,20 +61,20 @@ The following rule detects admin role assignments across all platforms:
   <button onclick="copyCode('code11')" style="position:absolute;top:0;right:0;">Copy</button>
   <button onclick="downloadCode('code11', 'elastic_admin_escalation_rule.json')" style="position:absolute;top:0;right:60px;">Download</button>
 </div>
-<pre id="code11" style="background:#1e1e1e;color:#dcdcdc;padding:1em;"><code>
+```json
 {
   "query": {
     "bool": {
       "should": [
-        { "match": { "aws.cloudtrail.eventName": "AddUserToGroup" }},
-        { "match": { "azure.auditlogs.operationName": "Add member to role" }},
-        { "match": { "gcp.auditlog.methodName": "SetIamPolicy" }}
+        { "match": { "aws.cloudtrail.eventName": "AddUserToGroup" } },
+        { "match": { "azure.auditlogs.operationName": "Add member to role" } },
+        { "match": { "gcp.auditlog.methodName": "SetIamPolicy" } }
       ],
       "minimum_should_match": 1
     }
   }
 }
-</code></pre>
+```
 
 ---
 
