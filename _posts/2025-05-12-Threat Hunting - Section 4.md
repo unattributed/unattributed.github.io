@@ -86,7 +86,7 @@ Google Cloud Platform (GCP) offers high-fidelity logging and native security too
   <button onclick="copyCode('code7')" style="position:absolute;top:0;right:0;">Copy</button>
   <button onclick="downloadCode('code7', 'gcp_iam_policy_alert.json')" style="position:absolute;top:0;right:60px;">Download</button>
 </div>
-<pre id="code7" style="background:#1e1e1e;color:#dcdcdc;padding:1em;"><code>
+<pre id="code7" style="background:#1e1e1e;color:#dcdcdc;padding:1em;overflow-x:auto;white-space:pre-wrap;"><code>
 resource.type="gce_instance"
 logName="projects/your-project/logs/cloudaudit.googleapis.com%2Factivity"
 protoPayload.methodName="SetIamPolicy"
