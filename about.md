@@ -79,7 +79,13 @@ Want to add exceptions (e.g., "Except where law requires attribution") or tie th
 Because sometimes the best way to think clearly is to remove yourself from the equation.  
 (Content is [CC0](https://creativecommons.org/publicdomain/zero/1.0/) unless noted.)
 
-## Contact
-Email me: [shopkeeper@unattributed.blog](mailto:shopkeeper@unattributed.blog).
-Public Key: [Download PGP Key](https://unattributed.github.io/publickey.shopkeeper%40unattributed.blog-d633e67f12a12a9c3dc410965ff509dca27b26e0.asc)
-PGP Key Fingerprint: `D633 E67F 12A1 2A9C 3DC4 1096 5FF5 09DC A27B 26E0`
+### Contact  
+
+**Email Me**:  
+[shopkeeper@unattributed.blog](mailto:shopkeeper@unattributed.blog)  
+
+**Public Key**:  
+[Download PGP Key](https://unattributed.github.io/publickey.shopkeeper%40unattributed.blog-d633e67f12a12a9c3dc410965ff509dca27b26e0.asc)  
+
+**PGP Key Fingerprint**:  
+`D633 E67F 12A1 2A9C 3DC4 1096 5FF5 09DC A27B 26E0`  
