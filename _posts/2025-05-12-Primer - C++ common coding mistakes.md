@@ -7,112 +7,124 @@ categories: [c++]
 tags: [secure-coding, c++, code-review]
 ---
 
-# **C++ Common Coding Mistakes Cheat Sheet**  
+# **SQL Common Coding Mistakes Cheat Sheet**  
 
-## **1. Memory Management**  
-- **Memory Leaks**: Forgetting to `delete` dynamically allocated memory.  
-  ```cpp
-  int *p = new int[10]; // Must call delete[] p;
-  ```  
-- **Double Free**: Calling `delete` or `free()` on already freed memory.  
-- **Dangling Pointers**: Using pointers after memory is freed.  
-  ```cpp
-  int *p = new int(5);
-  delete p;
-  *p = 10; // Undefined behavior!
-  ```  
-- **Smart Pointers**: Prefer `unique_ptr`, `shared_ptr` over raw pointers.  
-
-## **2. Undefined Behavior**  
-- **Uninitialized Variables**: Always initialize variables.  
-  ```cpp
-  int x; // Bad  
-  int y = 0; // Good  
-  ```  
-- **Buffer Overflow**: Accessing beyond array bounds.  
-  ```cpp
-  int arr[5];
-  arr[5] = 10; // Undefined behavior!
-  ```  
-- **Signed/Unsigned Mismatch**: Comparing signed and unsigned integers.  
-  ```cpp
-  for (int i = 0; i < v.size(); i++) // v.size() is size_t (unsigned)  
+## **1. SQL Injection**  
+- **Never use raw input in queries**: Use parameterized queries or prepared statements.  
+  ```sql
+  -- Bad (Vulnerable to SQL injection)
+  SELECT * FROM users WHERE username = '" + user_input + "';
+  
+  -- Good (Parameterized)
+  SELECT * FROM users WHERE username = ?;  -- (Prepared statement)
   ```  
 
-## **3. Object Lifecycle & Copying**  
-- **Shallow Copy**: Default copy constructor/assignment may cause double-free.  
-  ```cpp
-  class BadClass {  
-    int *data;  
-  public:  
-    ~BadClass() { delete data; } // Need custom copy constructor & operator=  
-  };  
+## **2. Missing Indexes**  
+- **Slow queries?** Check if columns in `WHERE`, `JOIN`, `ORDER BY` are indexed.  
+  ```sql
+  -- Add an index if frequently queried
+  CREATE INDEX idx_username ON users(username);
   ```  
-- **Rule of 5**: If you define one of (destructor, copy/move constructor, copy/move assignment), define all.  
+- **Avoid unnecessary indexes** (slows down inserts/updates).  
 
-## **4. STL Pitfalls**  
-- **Iterator Invalidation**: Modifying containers while iterating.  
-  ```cpp
-  std::vector<int> v = {1, 2, 3};  
-  for (auto it = v.begin(); it != v.end(); ++it) {  
-    if (*it == 2) v.erase(it); // Invalidates iterator!  
-  }  
-  ```  
-- **Reserve vs Resize**: `reserve()` only allocates, `resize()` also constructs.  
-
-## **5. Common Syntax Errors**  
-- **Missing `break` in `switch`**:  
-  ```cpp
-  switch (x) {  
-    case 1: doSomething(); // Falls through!  
-    case 2: break;  
-  }  
-  ```  
-- **Misplaced Semicolons**:  
-  ```cpp
-  if (x > 0); { doSomething(); } // Always executes!  
+## **3. Implicit Type Conversion**  
+- **Comparing different types** (e.g., string vs number) can cause full table scans.  
+  ```sql
+  -- Bad (If 'id' is VARCHAR but compared to a number)
+  SELECT * FROM users WHERE id = 123;
+  
+  -- Good (Explicit type matching)
+  SELECT * FROM users WHERE id = '123';
   ```  
 
-## **6. Thread Safety**  
-- **Race Conditions**: Shared data accessed without locks.  
-  ```cpp
-  std::mutex mtx;  
-  void unsafe() { counter++; }  
-  void safe() { std::lock_guard<std::mutex> lock(mtx); counter++; }  
+## **4. Cartesian Products (Cross Joins)**  
+- **Missing `JOIN` conditions** lead to unintended huge results.  
+  ```sql
+  -- Bad (Returns all combinations)
+  SELECT * FROM users, orders;
+  
+  -- Good (Explicit JOIN)
+  SELECT * FROM users JOIN orders ON users.id = orders.user_id;
   ```  
-- **Deadlocks**: Lock multiple mutexes in the same order.  
 
-## **7. Compiler Warnings**  
-- **Always enable warnings**:  
-  ```sh
-  g++ -Wall -Wextra -pedantic
+## **5. NULL Handling**  
+- **`NULL` comparisons require `IS NULL`/`IS NOT NULL`** (not `= NULL`).  
+  ```sql
+  -- Bad (Doesn't work)
+  SELECT * FROM users WHERE deleted_at = NULL;
+  
+  -- Good
+  SELECT * FROM users WHERE deleted_at IS NULL;
   ```  
-- **Fix `unused variable`, `implicit cast` warnings**.  
+- **Aggregate functions (`COUNT`, `SUM`) ignore `NULL` values**.  
 
-## **8. Performance Issues**  
-- **Pass by Value**: Use `const &` for large objects.  
-  ```cpp
-  void slow(std::string s);  
-  void fast(const std::string &s);  
+## **6. GROUP BY Mistakes**  
+- **Non-aggregated columns in `SELECT` must be in `GROUP BY`**.  
+  ```sql
+  -- Bad (May return arbitrary values)
+  SELECT user_id, username, COUNT(*) FROM orders;
+  
+  -- Good
+  SELECT user_id, username, COUNT(*) 
+  FROM orders 
+  GROUP BY user_id, username;
   ```  
-- **`std::endl` vs `\n`**: `std::endl` flushes buffer unnecessarily.  
 
-## **9. Exceptions & Error Handling**  
-- **Catching Exceptions by Value**:  
-  ```cpp
-  try { throw std::runtime_error("Error"); }  
-  catch (std::exception &e) { /* Good */ }  
-  catch (std::exception e) { /* Bad (slicing) */ }  
+## **7. Subquery Performance**  
+- **Avoid `NOT IN` with NULLs** (returns no rows if subquery contains `NULL`).  
+  ```sql
+  -- Bad (Fails silently if subquery has NULL)
+  SELECT * FROM users WHERE id NOT IN (SELECT user_id FROM orders);
+  
+  -- Better (Use NOT EXISTS)
+  SELECT * FROM users 
+  WHERE NOT EXISTS (SELECT 1 FROM orders WHERE orders.user_id = users.id);
   ```  
-- **RAII**: Use destructors for cleanup (e.g., files, locks).  
 
-## **10. C++11+ Best Practices**  
-- **Use `nullptr` instead of `NULL` or `0`**.  
-- **Use `auto` to avoid type redundancy (but not everywhere!)**.  
-- **`override` keyword for virtual functions**.  
+## **8. Transaction Errors**  
+- **Forgotten `COMMIT`/`ROLLBACK`** leads to locks or partial updates.  
+  ```sql
+  BEGIN TRANSACTION;
+  UPDATE accounts SET balance = balance - 100 WHERE user_id = 1;
+  UPDATE accounts SET balance = balance + 100 WHERE user_id = 2;
+  COMMIT; -- Or ROLLBACK if error occurs
+  ```  
+
+## **9. Over-fetching Data**  
+- **Avoid `SELECT *`** (fetch only needed columns).  
+  ```sql
+  -- Bad (Unnecessary data transfer)
+  SELECT * FROM users;
+  
+  -- Good
+  SELECT id, username FROM users;
+  ```  
+
+## **10. Date/Time Pitfalls**  
+- **Time zones matter!** Store in UTC and convert on display.  
+  ```sql
+  -- Bad (Timezone-dependent)
+  INSERT INTO logs (event_time) VALUES (NOW());
+  
+  -- Good (Explicit UTC)
+  INSERT INTO logs (event_time) VALUES (UTC_TIMESTAMP());
+  ```  
+
+## **11. Case Sensitivity & Collation**  
+- **`LIKE` vs `=`** (case sensitivity depends on collation).  
+  ```sql
+  -- May behave differently based on collation
+  SELECT * FROM users WHERE username LIKE 'john%';
+  SELECT * FROM users WHERE username = 'John';
+  ```  
+
+## **12. Deadlocks & Long-running Queries**  
+- **Avoid holding locks too long** (optimize transactions).  
+- **Use `EXPLAIN` to debug slow queries**.  
 
 ---  
-**Debug Tools**: Valgrind, AddressSanitizer (`-fsanitize=address`), `gdb`.  
-**Static Analysis**: Clang-Tidy, Cppcheck.  
+**Debug Tools**:  
+- `EXPLAIN QUERY PLAN` (SQLite) / `EXPLAIN ANALYZE` (PostgreSQL)  
+- Query profiling (`SET profiling = 1;` in MySQL)  
 
-*Keep this handy to avoid common pitfalls!* 🚀
+*Keep this handy to avoid costly SQL mistakes!* 🚀
