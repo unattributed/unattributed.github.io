@@ -146,6 +146,7 @@ Use GCP Cloud Functions to automate alerts and remediation.
 <pre id="code8" style="background:#1e1e1e;color:#dcdcdc;padding:1em;"><code>
 def detect_policy_change(event, context):
     if "SetIamPolicy" in event['protoPayload']['methodName']:
-        if "roles/owner" in event['protoPayload']['serviceData']['policyDelta']['bindingDeltas'][0]['role']:
+        if "roles/owner" in event['protoPayload']['serviceData']
+            ['policyDelta']['bindingDeltas'][0]['role']:
             alert("Privilege escalation detected in GCP")
 </code></pre>

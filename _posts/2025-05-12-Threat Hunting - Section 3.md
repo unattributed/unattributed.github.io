@@ -65,7 +65,8 @@ Kusto Query Language (KQL) is used in Azure Monitor, Log Analytics, and Microsof
 <pre id="code4" style="background:#1e1e1e;color:#dcdcdc;padding:1em;"><code>
 SigninLogs
 | where ResultType == 50074
-| summarize FailedAttempts = count() by IPAddress, bin(TimeGenerated, 1h)
+| summarize FailedAttempts = count() by IPAddress, 
+|  bin(TimeGenerated, 1h)
 | where FailedAttempts > 10
 </code></pre>
 
