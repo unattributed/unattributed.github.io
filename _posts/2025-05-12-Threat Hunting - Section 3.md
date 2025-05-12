@@ -80,7 +80,8 @@ SigninLogs
 </div>
 <pre id="code5" style="background:#1e1e1e;color:#dcdcdc;padding:1em;"><code>
 SigninLogs
-| extend timestamp = TimeGenerated, location = tostring(Location), user = UserPrincipalName
+| extend timestamp = TimeGenerated, location = 
+|   tostring(Location), user = UserPrincipalName
 | summarize makeset(location), min(timestamp), max(timestamp) by user
 | where array_length(makeset_location) > 1
 </code></pre>
@@ -133,18 +134,18 @@ Example rule for detecting privileged escalation in Azure AD:
   <button onclick="copyCode('code6')" style="position:absolute;top:0;right:0;">Copy</button>
   <button onclick="downloadCode('code6', 'elastic_azuread_admin.json')" style="position:absolute;top:0;right:60px;">Download</button>
 </div>
-<pre id="code6" style="background:#1e1e1e;color:#dcdcdc;padding:1em;"><code>
+```json
 {
   "query": {
     "bool": {
       "must": [
-        { "match": { "azure.auditlogs.operationName": "Add member to role" }},
-        { "match": { "azure.auditlogs.properties.targetRole": "Global Administrator" }}
+        { "match": { "azure.auditlogs.operationName": "Add member to role" } },
+        { "match": { "azure.auditlogs.properties.targetRole": "Global Administrator" } }
       ]
     }
   }
 }
-</code></pre>
+```
 
 ---
 
