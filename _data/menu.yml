@@ -36,6 +36,13 @@ entries:
       show_more_text: See more posts...
       show_more_url: threat-hunting-archive.html
   
+  - title: posts - WebAppSec
+    post_list:
+      category: webappsec
+      limit: 2
+      show_more: true
+      show_more_text: See more posts...
+      show_more_url: webappsec-archive.html
   
   - title: rss
     url: feed.xml
