@@ -27,6 +27,15 @@ entries:
       show_more: false
       show_more_text: See more posts...
       show_more_url: yara-archive.md
-      
+
+  - title: posts - Threat Hunting
+    post_list:
+      category: Threat Hunting
+      limit: 2
+      show_more: false
+      show_more_text: See more posts...
+      show_more_url: threat-hunting-archive.md
+  
+  
   - title: rss
     url: feed.xml
