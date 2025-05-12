@@ -15,7 +15,7 @@ entries:
   - title: posts - Java
     post_list:
       category: java
-      limit: 2
+      limit: 1
       show_more: true
       show_more_text: See more posts...
       show_more_url: java-archive.html
@@ -23,7 +23,7 @@ entries:
   - title: posts - Yara
     post_list:
       category: yara
-      limit: 2
+      limit: 1
       show_more: true
       show_more_text: See more posts...
       show_more_url: yara-archive.html
@@ -31,7 +31,7 @@ entries:
   - title: posts - Threat Hunting
     post_list:
       category: threat-hunting
-      limit: 2
+      limit: 1
       show_more: true
       show_more_text: See more posts...
       show_more_url: threat-hunting-archive.html
@@ -39,7 +39,7 @@ entries:
   - title: posts - WebAppSec
     post_list:
       category: webappsec
-      limit: 2
+      limit: 1
       show_more: true
       show_more_text: See more posts...
       show_more_url: webappsec-archive.html
