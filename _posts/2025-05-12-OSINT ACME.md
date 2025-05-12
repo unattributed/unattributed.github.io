@@ -3,7 +3,7 @@ layout: post
 title: "Primer - OSINT Guide"
 date: 2025-05-12
 author: unattributed
-categories: [OSINT]
+categories: [osint]
 tags: [osint, kali, parrotos]
 ---
 

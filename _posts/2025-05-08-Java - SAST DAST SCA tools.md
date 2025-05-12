@@ -3,7 +3,7 @@ layout: post
 author: unattributed
 title: "Java: SAST/DAST/SCA"
 date: 2025-05-06
-categories: [Java]
+categories: [java]
 tags: [cwe, java, secure-code, sast, dast, code-review]
 ---
 

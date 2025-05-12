@@ -3,7 +3,7 @@ layout: post
 title: "Java Secure Coding: Beyond Oracle’s Guidelines"
 date: 2025-05-11
 author: unattributed
-categories: [Java]
+categories: [java]
 tags: [secure-coding, java, code-review]
 ---
 

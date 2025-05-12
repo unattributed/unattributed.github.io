@@ -3,7 +3,7 @@ layout: post
 title: "Elastic AI: Yara rules primer for assumed-breach "
 author: unattributed
 date: 2025-05-06
-categories: [ElasticAI, Yara]
+categories: [ElasticAI, yara]
 tags: [yara, elasticai, threat-hunting]
 ---
 

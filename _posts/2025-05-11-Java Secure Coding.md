@@ -3,7 +3,7 @@ layout: post
 title: "Primer - Java Secure Coding Guide"
 date: 2025-05-11
 author: unattributed
-categories: [Java]
+categories: [java]
 tags: [secure-coding, java, code-review]
 ---
 

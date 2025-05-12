@@ -3,7 +3,7 @@ layout: post
 title: "CWE Top 25: Programmatic Errors That Cause Vulnerabilities in Java"
 author: unattributed
 date: 2025-05-08
-categories: [Java]
+categories: [java]
 tags: [cwe, java, secure-code, sast, dast, code-review]
 ---
 
