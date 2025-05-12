@@ -66,9 +66,21 @@ The following rule detects admin role assignments across all platforms:
   "query": {
     "bool": {
       "should": [
-        { "match": { "aws.cloudtrail.eventName": "AddUserToGroup" } },
-        { "match": { "azure.auditlogs.operationName": "Add member to role" } },
-        { "match": { "gcp.auditlog.methodName": "SetIamPolicy" } }
+        { 
+          "match": { 
+            "aws.cloudtrail.eventName": "AddUserToGroup" 
+          } 
+        },
+        { 
+          "match": { 
+            "azure.auditlogs.operationName": "Add member to role" 
+          } 
+        },
+        { 
+          "match": { 
+            "gcp.auditlog.methodName": "SetIamPolicy" 
+          } 
+        }
       ],
       "minimum_should_match": 1
     }
