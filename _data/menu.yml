@@ -14,7 +14,7 @@ entries:
 
   - title: posts - Java
     post_list:
-      category: Java
+      category: java
       limit: 2
       show_more: true
       show_more_text: See more posts...
@@ -22,7 +22,7 @@ entries:
   
   - title: posts - Yara
     post_list:
-      category: Yara
+      category: yara
       limit: 2
       show_more: true
       show_more_text: See more posts...
