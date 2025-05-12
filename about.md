@@ -81,11 +81,11 @@ Because sometimes the best way to think clearly is to remove yourself from the e
 
 ### Contact  
 
-**Email Me**:  
+**Email Me**
 [shopkeeper@unattributed.blog](mailto:shopkeeper@unattributed.blog)  
 
-**Public Key**:  
+**Public Key** 
 [Download PGP Key](https://unattributed.github.io/publickey.shopkeeper%40unattributed.blog-d633e67f12a12a9c3dc410965ff509dca27b26e0.asc)  
 
-**PGP Key Fingerprint**:  
+**PGP Key Fingerprint** 
 `D633 E67F 12A1 2A9C 3DC4 1096 5FF5 09DC A27B 26E0`  
