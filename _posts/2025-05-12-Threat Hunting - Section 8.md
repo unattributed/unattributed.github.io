@@ -108,7 +108,8 @@ jobs:
       run: yara -r rules.yar ./build || exit 1
     - name: Invoke Elastic webhook on success
       run: |
-        curl -X POST https://elastic.example.com/detections/ci-update \
+        curl -X POST \
+        https://elastic.example.com/detections/ci-update \
         -d '{"status": "secure"}'
 </code></pre>
 
