@@ -105,6 +105,7 @@ Advanced adversaries may use:
 2. **VPN/Tor**: Route traffic through Tor (Session does this by default).  
 3. **Avoid Cross-Platform Linking**: Don’t use the same identity across services.  
 4. **Metadata Minimization**: Use apps like Session or Threema that collect minimal metadata.  
+5. **Isolation w/ Private Containers**: See next blog posting
 
 ---  
 
