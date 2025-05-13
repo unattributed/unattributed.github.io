@@ -89,6 +89,7 @@ Advanced adversaries may use:
 - **Use Self-Destructing Messages**: Apps like Session allow auto-deletion.  
 - **Full-Disk Encryption (FDE)**: Ensure FDE is enabled (Android: File-Based Encryption, iOS: Data Protection).  
 - **Faraday Bags**: If at risk of seizure, store devices in Faraday bags to prevent remote wiping.  
+- **Private Containers**: See next blog posting
 
 ---  
 
