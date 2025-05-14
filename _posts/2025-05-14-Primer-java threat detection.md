@@ -6,11 +6,7 @@ categories: [java, yara, threat-hunting]
 tags: [UEBA, SIEM, Cloud Security, Behavioral Analytics]
 ---
 
-
 # **SOC Guide: Protecting Healthcare Java Apps with YARA, KQL & SOAR**  
-*(Title alternatives: "From Detection to Action: Securing Medical Java Apps at Scale" or "SOC Guide: Protecting Healthcare Java Apps with YARA, KQL & SOAR")*  
-
----
 
 ## **1. Introduction**  
 **Audience**: Healthcare IT security teams managing credential-based Java applications (EHRs, patient portals) with:  
@@ -188,19 +184,4 @@ def handle_data_exfil(user):
 3. **Set thresholds**: E.g., >5 failed logins = critical alert.  
 
 ---
-
-## **7. Final Blog Post Metadata**  
-**Title**: *"Healthcare Java App Security: Detection, Monitoring & Automated Response"*  
-**Tags**: `#HealthcareSecurity`, `#ThreatDetection`, `#SOAR`, `#Java`, `#EHR`  
-**Featured Image Suggestion**: A lock icon overlaying a medical record UI.  
-
----
-
-### **Ready to Publish**  
-This document is complete with:  
-1. **Detection rules** (YARA/KQL).  
-2. **SOAR playbooks** (Python pseudocode for Splunk/Demisto/Sentinel).  
-3. **Compliance integration** (HIPAA/GDPR).  
-
-**Final step**: Replace API pseudocode with your actual vendor APIs (e.g., CrowdStrike `isolate_host()` → their specific REST endpoint).  
 
