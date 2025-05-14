@@ -1,12 +1,12 @@
 ---
-title: "Cross-Environment UEBA: Unified Security Monitoring for Hybrid Cloud Architectures"
+title: "Cross-Environment UEBA"
 date: 2025-05-14
 author: unattributed
 categories: [Security Operations, Cloud Security, Threat Detection]
 tags: [UEBA, SIEM, Cloud Security, Behavioral Analytics]
 ---
 
-# Cross-Environment UEBA: Unified Security Monitoring for Hybrid Cloud Architectures
+# Unified Security Monitoring for Hybrid Cloud Architectures
 
 ## Introduction
 
