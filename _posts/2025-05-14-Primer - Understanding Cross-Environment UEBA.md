@@ -49,24 +49,24 @@ Traditional UEBA solutions often treat these as separate silos, creating blind s
 
 | Scenario                        | Detection Method                                      | Risk Mitigation                          |
 |---------------------------------|------------------------------------------------------|------------------------------------------|
-| Credential hopping across clouds | Impossible travel between cloud providers within short timeframe | Automated session termination + MFA challenge |
-| Overprivileged service accounts | Cross-cloud privilege usage analysis                 | Just-in-Time access provisioning         |
-| Application credential theft    | Java service account behaving like human user        | Service account rotation + investigation |
-| Data exfiltration patterns      | Unusual cross-cloud data transfers                   | Automated traffic blocking               |
+| Credential hopping across clouds | Detect impossible travel between cloud providers within a short timeframe | Automate session termination and enforce MFA challenge |
+| Overprivileged service accounts | Analyze cross-cloud privilege usage                 | Implement Just-in-Time access provisioning |
+| Application credential theft    | Identify Java service account behaving like a human user | Rotate service account credentials and initiate investigation |
+| Data exfiltration patterns      | Monitor unusual cross-cloud data transfers          | Block traffic automatically to prevent exfiltration |
 
 ## Implementation Architecture
 
 ```plaintext
-┌───────────────────────────────────────────────────────┐
-│                   Data Sources                        │
-│ ┌─────────────┐ ┌─────────────┐ ┌──────────────────┐ │
-│ │  Cloud APIs │ │ On-Prem Logs│ │App Instrumentation│ │
-│ └─────────────┘ └─────────────┘ └──────────────────┘ │
-└───────────────┬─────────────────┬────────────────────┘
+┌────────────────────────────────────────────────────────┐
+│                   Data Sources                         │
+│ ┌─────────────┐ ┌─────────────┐ ┌───────────────────┐  │
+│ │  Cloud APIs │ │ On-Prem Logs│ │App Instrumentation│  │
+│ └─────────────┘ └─────────────┘ └───────────────────┘  │
+└───────────────┬─────────────────┬──────────────────────┘
                 │                 │
                 ▼                 ▼
-┌───────────────────────────────────────────────────────┐
-│                Normalization Layer                    │
+┌──────────────────────────────────────────────────────┐
+│                Normalization Layer                   │
 │  ┌────────────────────────────────────────────────┐  │
 │  │             Common Event Schema                │  │
 │  │ (OCSF, CEF, or custom organizational schema)   │  │
