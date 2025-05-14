@@ -14,8 +14,8 @@ tags: [UEBA, SIEM, Cloud Security, Behavioral Analytics]
 
 ## **1. Introduction**  
 **Audience**: Healthcare IT security teams managing credential-based Java applications (EHRs, patient portals) with:  
-- 40,000+ users  
-- No 2FA (username/password only)  
+- Large # of users  
+- Possible issues with 2FA or FIDO2 implementations (bound to username/password only controls only)  
 - Browser-based interfaces  
 
 **Scope**: Covers **threat detection** (YARA, KQL), **incident response playbooks**, and **SOAR automation** for:  
@@ -28,28 +28,51 @@ tags: [UEBA, SIEM, Cloud Security, Behavioral Analytics]
 
 ## **2. Critical Threat Detection**  
 ### **A. Key Log Sources to Monitor**  
-| **Log Type**          | **Critical Alerts**                          | **Sample KQL**                                  |  
-|-----------------------|---------------------------------------------|------------------------------------------------|  
-| Authentication        | Brute force, impossible travel              | `SecurityEvent \| where EventID == 4625`       |  
-| EHR Access            | Mass record downloads                       | `AuditLogs \| where Operation == "ReadPatientRecord"` |  
-| Network               | Unencrypted PHI transfers                   | `NetworkLogs \| where Protocol == "HTTP" and isempty(SSLVersion)` |  
 
-### **B. YARA Rules for Healthcare Threats**  
+<table>
+    <thead>
+        <tr>
+            <th>Log Type</th>
+            <th>Critical Alerts</th>
+            <th>Sample KQL</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Authentication</td>
+            <td>Brute force, impossible travel</td>
+            <td><code>SecurityEvent | where EventID == 4625</code></td>
+        </tr>
+        <tr>
+            <td>EHR Access</td>
+            <td>Mass record downloads</td>
+            <td><code>AuditLogs | where Operation == "ReadPatientRecord"</code></td>
+        </tr>
+        <tr>
+            <td>Network</td>
+            <td>Unencrypted PHI transfers</td>
+            <td><code>NetworkLogs | where Protocol == "HTTP" and isempty(SSLVersion)</code></td>
+        </tr>
+    </tbody>
+</table>
+
+### **B. YARA Rules for Healthcare Threats**
+ 
 #### **Detect Ransomware Payloads**  
-```yaml
+
 rule Java_Ransomware {  
   strings: $encrypt = "Cipher.getInstance(\"AES\")", $note = "YOUR_FILES_ARE_ENCRYPTED"  
   condition: $encrypt and $note  
 }  
-```  
+
 
 #### **EPIC/Cerner API Scraping**  
-```yaml
+
 rule EHR_API_Scraper {  
   strings: $epic_api = "/api/FHIR/R4/Patient", $mass_query = "?_count=1000"  
   condition: $epic_api and $mass_query  
 }  
-```  
+
 
 ---
 
@@ -123,11 +146,34 @@ def handle_data_exfil(user):
 ---
 
 ## **5. MITRE ATT&CK Mapping**  
-| **Threat**          | **Tactic**          | **SOAR Playbook**               |  
-|----------------------|---------------------|---------------------------------|  
-| Brute Force          | Credential Access   | Block IP + Disable Account      |  
-| Ransomware           | Impact              | Isolate Host + Restore Backups  |  
-| Data Exfiltration    | Exfiltration        | Revoke Sessions + Legal Alert   |  
+
+<table>
+    <thead>
+        <tr>
+            <th>Threat</th>
+            <th>Tactic</th>
+            <th>SOAR Playbook</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Brute Force</td>
+            <td>Credential Access</td>
+            <td>Block IP + Disable Account</td>
+        </tr>
+        <tr>
+            <td>Ransomware</td>
+            <td>Impact</td>
+            <td>Isolate Host + Restore Backups</td>
+        </tr>
+        <tr>
+            <td>Data Exfiltration</td>
+            <td>Exfiltration</td>
+            <td>Revoke Sessions + Legal Alert</td>
+        </tr>
+    </tbody>
+</table>
+
 
 ---
 
