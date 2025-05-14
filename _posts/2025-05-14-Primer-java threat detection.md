@@ -1,8 +1,8 @@
 ---
 title: "Java App Security: Threat Detection, Monitoring & Automated Response"
-date: 2023-11-15
-author: [Your Name]
-categories: [Security Operations, Cloud Security, Threat Detection]
+date: 2025-05-14
+author: unattributed
+categories: [java, yara, threat-hunting]
 tags: [UEBA, SIEM, Cloud Security, Behavioral Analytics]
 ---
 
