@@ -72,13 +72,12 @@ Want to add exceptions (e.g., "Except where law requires attribution") or tie th
 - Template used [riggraz/no-style-please!](https://github.com/riggraz/no-style-please) 
 - Built with [VS Code](https://code.visualstudio.com/) (or your generator)  
 - Hosted on [GitHub Pages](https://pages.github.com/)  
-- No JavaScript required  
+- No JavaScript required (_kind of_)
 
   
 **Why?**  
 Because sometimes the best way to think clearly is to remove yourself from the equation.  
 (Content is [CC0](https://creativecommons.org/publicdomain/zero/1.0/) unless noted.)
-### Contact  
 
 ### Contact  
 
