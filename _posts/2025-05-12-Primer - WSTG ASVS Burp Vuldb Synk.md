@@ -8,7 +8,11 @@ tags: [webapp, burp, dvwa, owasp, 'owasp wstg', 'owasp top 10']
 ---
 
 
-# Comprehensive Guide for Web Application Security Testing: OWASP WSTG, OWASP Top 10, and OWASP ASVS
+# Prime - Web Application Security Testing: OWASP WSTG, OWASP Top 10, and OWASP ASVS
+
+*** NOTE *** This document will be rewritten to align with the OWASP Top 10:2021
+*** NOTE *** This document will be rewritten to align with the OWASP ASVS Stable Release 4.0.3
+*** NOTE *** This document will be rewritten to align with the OWASP WSTG latest Stable Release _(as per publication date)_
 
 Web application security is a multi-faceted discipline, requiring a thorough approach to testing and remediation. The **OWASP Web Security Testing Guide (WSTG)** and the **OWASP Top 10** vulnerabilities provide a solid framework for assessing the security of web applications. In this document, we will map WSTG tests to relevant OWASP Top 10 vulnerabilities and provide practical testing instructions. Additionally, we will explore how to use both open-source and commercial tools like **Burp Suite Professional**, **Snyk**, and **VulDB** for comprehensive testing. Finally, we will map these vulnerabilities to the **OWASP Application Security Verification Standard (ASVS)** to ensure we cover security requirements at all levels.
 
