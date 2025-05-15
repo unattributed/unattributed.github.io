@@ -80,9 +80,12 @@ SigninLogs
 </div>
 <pre id="code5" style="background:#1e1e1e;color:#dcdcdc;padding:1em;"><code>
 SigninLogs
-| extend timestamp = TimeGenerated, location = 
-|   tostring(Location), user = UserPrincipalName
-| summarize makeset(location), min(timestamp), max(timestamp) by user
+| extend timestamp = TimeGenerated, 
+         location = tostring(Location), 
+         user = UserPrincipalName
+| summarize makeset(location), 
+            min(timestamp), 
+            max(timestamp) by user
 | where array_length(makeset_location) > 1
 </code></pre>
 
