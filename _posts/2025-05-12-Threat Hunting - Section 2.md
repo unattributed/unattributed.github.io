@@ -68,11 +68,11 @@ AWS provides a rich set of security and observability services across identity, 
 </div>
 <pre id="code2" style="background:#1e1e1e;color:#dcdcdc;padding:1em;"><code>
 def lambda_handler(event, context):
-  if event['detail']['eventName'] == "ModifyImageAttribute":
-    if "launchPermission" in event['detail']['requestParameters']:
-      permissions = event['detail']['requestParameters']['launchPermission']
-      if {"group": "all"} in permissions:
-        raise_alert("EC2 AMI made public")
+    if event['detail']['eventName'] == "ModifyImageAttribute":
+        if "launchPermission" in event['detail']['requestParameters']:
+            permissions = event['detail']['requestParameters']['launchPermission']
+            if {"group": "all"} in permissions:
+                raise_alert("EC2 AMI made public")
 </code></pre>
 
 ---
