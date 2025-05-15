@@ -86,9 +86,10 @@ Below is an example rule written for AWS Lambda to detect overly permissive S3 p
 </div>
 <pre id="code1" style="background:#1e1e1e;color:#dcdcdc;padding:1em;"><code>
 def lambda_handler(event, context):
-    if event['detail']['eventName'] == "PutBucketPolicy":
-        if "Allow": "Everyone" in event['detail']['requestParameters']:
-            raise_alert("Public S3 bucket detected")
+  if event['detail']['eventName'] == "PutBucketPolicy":
+    if "Allow": "Everyone" in event['detail']
+      ['requestParameters']:
+      raise_alert("Public S3 bucket detected")
 </code></pre>
 <script>
   function copyCode(id) {
