@@ -2,3 +2,67 @@
 ---
 
 @import "no-style-please";
+
+pre {
+  position: relative;
+  background: #1e1e1e;
+  padding: 1em 1em 1em 3.5em;
+  border-radius: 6px;
+  margin: 1.5em 0;
+  overflow-x: auto;
+  counter-reset: line;
+}
+
+pre code {
+  display: block;
+  color: #d4d4d4;
+  font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+pre code .line::before {
+  position: absolute;
+  left: -3em;
+  width: 2.5em;
+  text-align: right;
+  color: #6c6c6c;
+  content: counter(line);
+  counter-increment: line;
+}
+
+.code-actions {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  display: flex;
+  gap: 0.5em;
+}
+
+.code-btn {
+  background: #2d2d2d;
+  border: none;
+  color: #d4d4d4;
+  padding: 0.25em 0.5em;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.8em;
+  transition: all 0.2s;
+}
+
+.code-btn:hover {
+  background: #3a3a3a;
+  color: #ffffff;
+}
+
+.language-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.25em 0.5em;
+  background: #2d2d2d;
+  color: #9cdcfe;
+  font-size: 0.7em;
+  border-radius: 6px 0 6px 0;
+  text-transform: uppercase;
+}
