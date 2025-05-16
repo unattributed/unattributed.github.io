@@ -5,64 +5,86 @@
 
 pre {
   position: relative;
-  background: #1e1e1e;
-  padding: 1em 1em 1em 3.5em;
-  border-radius: 6px;
+  background: #1a1a1a;
+  padding: 1.5em 1.5em 1.5em 3.5em;
+  border-radius: 8px;
   margin: 1.5em 0;
   overflow-x: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #3a3a3a;
   counter-reset: line;
 }
 
 pre code {
   display: block;
-  color: #d4d4d4;
+  color: #e0e0e0;
   font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
-  font-size: 0.9em;
+  font-size: 0.92em;
   line-height: 1.5;
+  tab-size: 2;
 }
 
 pre code .line::before {
   position: absolute;
-  left: -3em;
-  width: 2.5em;
+  left: 1em;
+  width: 2em;
   text-align: right;
   color: #6c6c6c;
   content: counter(line);
   counter-increment: line;
+  user-select: none;
 }
 
-.code-actions {
+.security-code-actions {
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  top: 0.75em;
+  right: 0.75em;
   display: flex;
   gap: 0.5em;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-.code-btn {
+pre:hover .security-code-actions {
+  opacity: 1;
+}
+
+.security-code-btn {
   background: #2d2d2d;
   border: none;
   color: #d4d4d4;
-  padding: 0.25em 0.5em;
-  border-radius: 3px;
+  padding: 0.35em 0.65em;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 0.8em;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
 }
 
-.code-btn:hover {
+.security-code-btn:hover {
   background: #3a3a3a;
   color: #ffffff;
 }
 
-.language-label {
+.security-language-label {
   position: absolute;
   top: 0;
-  left: 0;
-  padding: 0.25em 0.5em;
+  right: 0;
+  padding: 0.25em 0.75em;
   background: #2d2d2d;
   color: #9cdcfe;
   font-size: 0.7em;
-  border-radius: 6px 0 6px 0;
+  border-radius: 0 0 0 6px;
   text-transform: uppercase;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 500;
 }
+
+.highlight .c1 { color: #6a9955; }
+.highlight .s { color: #ce9178; }
+.highlight .k { color: #569cd6; }
+.highlight .na { color: #9cdcfe; }
+.highlight .nb { color: #dcdcaa; }
+.highlight .mi { color: #b5cea8; }
