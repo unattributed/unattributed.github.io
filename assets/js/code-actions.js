@@ -1,122 +1,174 @@
+// assets/js/code-actions.js
 document.addEventListener('DOMContentLoaded', function() {
+    // ========================
+    // SECURITY LANGUAGE CONFIG
+    // ========================
     const languageExtensions = {
-        // Cloud Security
-        'kql': 'kql', 'kusto': 'kql', 'azure-log-analytics': 'kql', 'sentinel': 'kql',
-        'aws-cloudwatch': 'json', 'gcp-logging': 'json', 'splunk': 'spl', 'sumologic': 'json',
-        'sigma': 'yml', 'yara': 'yar', 'stix': 'json', 'openioc': 'xml',
-        'osquery': 'sql', 'falco': 'yaml', 'zeek': 'zeek', 'suricata': 'rules',
-
-        // Cloud IaC
-        'bicep': 'bicep', 'arm-template': 'json', 'cloudformation': 'yaml', 
-        'gcp-deployment': 'yaml', 'terraform': 'tf', 'pulumi': 'yaml',
-
-        // Standard Languages
-        'bash': 'sh', 'python': 'py', 'powershell': 'ps1', 'rust': 'rs', 'go': 'go',
-        'sql': 'sql', 'c': 'c', 'cpp': 'cpp', 'java': 'java', 'csharp': 'cs'
+        // Cloud Security & SIEM
+        'kql': 'kql', 'kusto': 'kql', 'sentinel': 'kql',
+        'splunk': 'spl', 'sumologic': 'json', 'elasticsearch': 'json',
+        'sigma': 'yml', 'yara': 'yar', 'snort': 'rules', 'suricata': 'rules',
+        'zeek': 'zeek', 'osquery': 'sql', 'falco': 'yaml',
+        
+        // Threat Intel
+        'stix': 'json', 'openioc': 'xml', 'maec': 'xml', 'cybox': 'xml',
+        
+        // Cloud Providers
+        'aws-cloudwatch': 'json', 'gcp-logging': 'yaml', 'azure-log-analytics': 'kql',
+        'aws-guardduty': 'json', 'gcp-scc': 'yaml', 'azure-security-center': 'json',
+        
+        // Infrastructure-as-Code
+        'terraform': 'tf', 'pulumi': 'yaml', 'cloudformation': 'yaml',
+        'arm-template': 'json', 'bicep': 'bicep', 'ansible': 'yml',
+        
+        // Secure Coding Languages
+        'c': 'c', 'cpp': 'cpp', 'csharp': 'cs', 'java': 'java',
+        'python': 'py', 'go': 'go', 'rust': 'rs', 'ruby': 'rb',
+        'php': 'php', 'nodejs': 'js', 'solidity': 'sol',
+        
+        // Scripting & Shell
+        'bash': 'sh', 'powershell': 'ps1', 'zsh': 'sh',
+        
+        // Web Security
+        'sql': 'sql', 'xss': 'txt', 'xslt': 'xsl', 'html': 'html'
     };
 
-    const specialFileNames = {
-        'sigma': 'sigma_rule_', 'yara': 'yara_rule_', 
-        'azure-policy': 'azure_policy_', 'aws-cloudwatch': 'aws_query_',
-        'gcp-logging': 'gcp_query_', 'kql': 'kql_query_'
+    // =====================
+    // SECURITY AUTO-NAMING
+    // =====================
+    const securityFilePrefixes = {
+        // Detection Rules
+        'sigma': 'sigma_rule_', 'yara': 'yara_', 'snort': 'snort_rule_',
+        'suricata': 'suricata_rule_', 'zeek': 'zeek_script_',
+        
+        // Cloud Queries
+        'kql': 'kql_query_', 'splunk': 'splunk_search_',
+        
+        // Secure Code
+        'solidity': 'contract_', 'cpp': 'secure_'
     };
 
-    function getFileName(language) {
-        const prefix = specialFileNames[language.toLowerCase()] || '';
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    // =================
+    // CORE FUNCTIONALITY
+    // =================
+    function getSecurityPrefix(lang) {
+        lang = lang.toLowerCase();
+        for (const [key, prefix] of Object.entries(securityFilePrefixes)) {
+            if (lang.includes(key)) return prefix;
+        }
+        return '';
+    }
+
+    function getDownloadFilename(language) {
+        const prefix = getSecurityPrefix(language) || '';
+        const timestamp = new Date().toISOString()
+            .replace(/[:.]/g, '-')
+            .replace('T', '_')
+            .slice(0, 19);
         return `${prefix}${timestamp}`;
     }
 
-    function getExtension(language) {
-        const langKey = language.toLowerCase();
-        if (langKey.includes('azure')) return 'json';
-        if (langKey.includes('aws')) return 'json';
-        if (langKey.includes('gcp')) return 'yaml';
-        return languageExtensions[langKey] || 'txt';
+    function getFileExtension(language) {
+        const lang = language.toLowerCase();
+        
+        // Cloud-specific defaults
+        if (lang.includes('azure')) return 'json';
+        if (lang.includes('aws')) return 'json';
+        if (lang.includes('gcp')) return 'yaml';
+        
+        // Direct matches
+        if (languageExtensions[lang]) return languageExtensions[lang];
+        
+        // Fallback to language detection
+        if (lang.includes('python')) return 'py';
+        if (lang.includes('javascript')) return 'js';
+        
+        return 'txt';
     }
 
-    function createDownloadButton(codeContent, language) {
-        const button = document.createElement('button');
-        button.className = 'code-btn download';
-        button.innerHTML = '↓';
-        button.title = 'Download';
-        
-        button.addEventListener('click', () => {
-            const extension = getExtension(language);
-            const blob = new Blob([codeContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${getFileName(language)}.${extension}`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        });
-        
-        return button;
-    }
-
-    function createCopyButton(codeContent) {
-        const button = document.createElement('button');
-        button.className = 'code-btn copy';
-        button.innerHTML = '⎘';
-        button.title = 'Copy';
-        
-        button.addEventListener('click', () => {
-            navigator.clipboard.writeText(codeContent).then(() => {
-                button.innerHTML = '✓';
-                setTimeout(() => button.innerHTML = '⎘', 2000);
-            });
-        });
-        
-        return button;
-    }
-
-    function addLanguageLabel(preElement, language) {
+    // ==============
+    // UI COMPONENTS
+    // ==============
+    function createSecurityLabel(preElement, language) {
         const label = document.createElement('div');
-        label.className = 'language-label';
+        label.className = 'security-language-label';
         
-        if (language.match(/azure/i)) {
-            label.style.backgroundColor = '#0078D4'; // Azure blue
-        } else if (language.match(/aws/i)) {
-            label.style.backgroundColor = '#FF9900'; // AWS orange
-        } else if (language.match(/gcp/i)) {
-            label.style.backgroundColor = '#4285F4'; // GCP blue
-        } else if (language.match(/sigma|yara/i)) {
-            label.style.backgroundColor = '#FF5722'; // Alert orange
+        // Threat detection rules (red)
+        if (/sigma|yara|snort|suricata/i.test(language)) {
+            label.style.backgroundColor = '#ff4444';
+            label.style.color = 'white';
+        }
+        // Cloud providers
+        else if (/azure/i.test(language)) {
+            label.style.backgroundColor = '#0078D4';
+        } 
+        else if (/aws/i.test(language)) {
+            label.style.backgroundColor = '#FF9900';
+        }
+        else if (/gcp/i.test(language)) {
+            label.style.backgroundColor = '#4285F4';
+        }
+        // Secure coding (green)
+        else if (/solidity|rust|go|cpp|csharp/i.test(language)) {
+            label.style.backgroundColor = '#4CAF50';
         }
         
-        label.textContent = language.replace(/-/g, ' ');
+        label.textContent = language.replace(/-/g, ' ').toUpperCase();
         preElement.appendChild(label);
     }
 
-    document.querySelectorAll('pre').forEach(preElement => {
-        const codeElement = preElement.querySelector('code');
-        if (!codeElement) return;
+    // =============
+    // INITIALIZATION
+    // =============
+    document.querySelectorAll('pre').forEach(pre => {
+        const code = pre.querySelector('code');
+        if (!code) return;
 
-        const languageClasses = Array.from(codeElement.classList)
-            .filter(className => className.startsWith('language-'));
-        
-        const language = languageClasses.length > 0 
-            ? languageClasses[0].replace('language-', '')
-            : 'text';
+        const language = Array.from(code.classList)
+            .find(cls => cls.startsWith('language-')) 
+            ?.replace('language-', '') || 'text';
 
-        const actionsContainer = document.createElement('div');
-        actionsContainer.className = 'code-actions';
+        // Create action buttons
+        const btnGroup = document.createElement('div');
+        btnGroup.className = 'security-code-actions';
         
-        actionsContainer.appendChild(
-            createDownloadButton(codeElement.textContent, language)
-        );
+        // Download Button
+        const downloadBtn = document.createElement('button');
+        downloadBtn.className = 'security-code-btn download';
+        downloadBtn.innerHTML = '<svg width="14" height="14"><use xlink:href="#download-icon"/></svg>';
+        downloadBtn.onclick = () => {
+            const ext = getFileExtension(language);
+            const filename = `${getDownloadFilename(language)}.${ext}`;
+            const blob = new Blob([code.textContent], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+
+        // Copy Button
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'security-code-btn copy';
+        copyBtn.innerHTML = '<svg width="14" height="14"><use xlink:href="#copy-icon"/></svg>';
+        copyBtn.onclick = () => {
+            navigator.clipboard.writeText(code.textContent)
+                .then(() => {
+                    copyBtn.innerHTML = '<svg width="14" height="14"><use xlink:href="#check-icon"/></svg>';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<svg width="14" height="14"><use xlink:href="#copy-icon"/></svg>';
+                    }, 2000);
+                });
+        };
+
+        btnGroup.appendChild(downloadBtn);
+        btnGroup.appendChild(copyBtn);
+        pre.appendChild(btnGroup);
         
-        actionsContainer.appendChild(
-            createCopyButton(codeElement.textContent)
-        );
-        
-        preElement.appendChild(actionsContainer);
-        
+        // Add language label if not plaintext
         if (language !== 'text') {
-            addLanguageLabel(preElement, language);
+            createSecurityLabel(pre, language);
         }
     });
 });
