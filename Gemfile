@@ -1,8 +1,11 @@
-group :jekyll_plugins do
-    gem "jekyll", "~> 4.3"
-    gem "bundler", "~> 2.6"
-    gem "html-proofer", "~> 5.0"
-    gem "jekyll-sitemap", "~> 1.4"
-    gem "jekyll-seo-tag", "~> 2.8"
-    gem "jekyll-feed", "~> 0.17"
-end
+source "https://rubygems.org"
+
+gem "jekyll", "~> 4.3.2"
+
+# Pull your theme from GitHub
+gem "unattributed-theme", git: "https://github.com/unattributed/unattributed-theme.git"
+
+# Plugins
+gem "jekyll-feed"
+gem "jekyll-seo-tag"
+gem "jekyll-sitemap"
