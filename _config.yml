@@ -5,7 +5,7 @@ baseurl: ""
 url: "https://unattributed.blog"
 
 # Set default theme to use custom styles
-remote_theme: unattributed/unattributed-theme
+theme: unattributed-theme
 
 # Output directory
 destination: _site
@@ -18,10 +18,10 @@ collections:
 
 # Plugins
 
-#plugins:
-#  - jekyll-feed
-#  - jekyll-seo-tag
-#  - jekyll-sitemap
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Exclude these files and directories from processing
 exclude:
