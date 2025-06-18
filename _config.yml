@@ -4,8 +4,8 @@ description: >-
 baseurl: ""
 url: "https://unattributed.blog"
 
-# Disable default theme to use custom styles
-theme: null
+# Set default theme to use custom styles
+remote_theme: unattributed/unattributed-theme
 
 # Output directory
 destination: _site
