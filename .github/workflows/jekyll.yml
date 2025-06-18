@@ -31,11 +31,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Ruby environment
-        uses: ruby/setup-ruby@v4
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'           # Matches your Jekyll environment
-          bundler-cache: true           # Enables gem caching
-          cache-version: 0              # Increment to bust cache if needed
+          ruby-version: '3.1'
+          bundler-cache: true
+          cache-version: 0
 
       - name: Setup GitHub Pages
         id: pages
@@ -49,7 +49,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./_site  # Directory where Jekyll outputs the final site
+          path: ./_site
 
   # Deployment job
   deploy:
@@ -64,4 +64,3 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           artifact_name: github-pages
-          custom-domain: unattributed.blog
