@@ -6,4 +6,4 @@ entries:
     url: /feed.xml
 
   - title: search
-    url: /search/
+    url: /search
