@@ -1,0 +1,28 @@
+// Colors
+$color-background: black;
+$color-foreground: #ffffff;
+$color-link: #ffff66;
+$color-meta: #888888;
+$color-border: #222;
+$color-code-background: #1e1e1e;
+$color-code-border: #333;
+$color-code-highlight: #2e2e2e;
+
+// Typography
+$font-base: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$font-mono: monospace;
+
+// Layout
+$max-width: 650px;
+$spacing: 1.5rem;
+$line-height: 1.75;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+
+// Derived colors
+$text-color: $color-foreground;
+$highlight-color: $color-link;
+$background-color: $color-background;

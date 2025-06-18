@@ -1,0 +1,182 @@
+@use 'variables';
+
+body {
+  background-color: variables.$color-background;
+  color: variables.$color-foreground;
+  font-family: variables.$font-base;
+  line-height: variables.$line-height;
+  margin: 0;
+  padding: variables.$spacing;
+  max-width: variables.$max-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: variables.$color-link;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: variables.$font-base;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+code, pre {
+  font-family: variables.$font-mono;
+  background-color: variables.$color-code-background;
+  color: variables.$color-foreground;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background-color: variables.$color-code-background;
+  border: 1px solid variables.$color-code-border;
+}
+
+blockquote {
+  border-left: 4px solid variables.$color-border;
+  padding-left: 1rem;
+  color: variables.$color-meta;
+  margin: 1.5rem 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid variables.$color-border;
+  margin: 2rem 0;
+}
+
+.code-buttons {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.25rem;
+  z-index: 10;
+}
+
+.copy-button,
+.download-button {
+  background-color: #333;
+  color: #ffff66;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.copy-button:hover,
+.download-button:hover {
+  background-color: #444;
+}
+
+// Search Components
+.search-container {
+  margin: 2rem 0;
+  position: relative;
+
+  #search-input {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(variables.$color-foreground, 0.05);
+    border: 1px solid variables.$color-border;
+    color: variables.$color-foreground;
+    font-family: variables.$font-base;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: 2px solid variables.$color-link;
+      background: rgba(variables.$color-foreground, 0.1);
+    }
+  }
+
+  .suggestions-list {
+    position: absolute;
+    background: variables.$color-background;
+    border: 1px solid variables.$color-border;
+    width: 100%;
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 100;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+
+    li {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid variables.$color-border;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: rgba(variables.$color-link, 0.1);
+      }
+    }
+  }
+
+  .results-list {
+    margin-top: 2rem;
+
+    li {
+      padding: 1rem 0;
+      border-bottom: 1px solid variables.$color-border;
+
+      .result-title {
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+      }
+
+      .result-snippet {
+        font-size: 0.9rem;
+        color: variables.$color-meta;
+      }
+
+      mark {
+        background: rgba(variables.$color-link, 0.3);
+      }
+
+      &.no-results {
+        color: variables.$color-meta;
+        font-style: italic;
+      }
+    }
+  }
+}
+.search-results {
+  mark {
+    background-color: rgba(variables.$color-link, 0.3);
+    color: inherit;
+    padding: 0.1em;
+  }
+
+  .result-snippet {
+    font-size: 0.9em;
+    color: variables.$color-meta;
+    margin-top: 0.5em;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: variables.$breakpoint-md) {
+  .search-container {
+    margin: 1.5rem 0;
+    
+    .suggestions-list {
+      max-height: 50vh;
+    }
+  }
+}

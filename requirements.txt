@@ -1,0 +1,8 @@
+pytest
+PyYAML
+markdown
+python-frontmatter
+black
+flake8
+rich
+pytest-cov

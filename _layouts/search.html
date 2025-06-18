@@ -1,0 +1,39 @@
+---
+layout: default
+title: Search
+---
+
+<section class="search-page" aria-label="Site Search">
+  <div class="search-content">
+    <h1 class="search-heading">Search</h1>
+    {% include search-bar.html %}
+    <!-- Remove local #search-results here; search-bar.html already contains it -->
+    <div class="search-help">
+      <ul>
+        <li>Avoid pronouns, adjectives and adverbs</li>
+        <li>Only full words and hyphenated terms are matched</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script data-posts-loaded="true">
+window.posts = [
+  {% for post in site.posts %}
+  {
+    title: {{ post.title | jsonify }},
+    url: {{ post.url | jsonify }},
+    content: {{ post.content | strip_html | normalize_whitespace | strip_newlines | jsonify }},
+    filename: {{ post.path | split:'/' | last | jsonify }},
+    date: "{{ post.date | date: "%Y-%m-%d" }}"
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+];
+</script>
+
+<script src="{{ '/assets/js/search-hybrid.js' | relative_url }}"></script>
+
+<div class="archive-nav">
+  <a href="{{ '/' | relative_url }}">🠠 Home</a>  · 
+  <a href="#top">↑ Top</a>
+</div>

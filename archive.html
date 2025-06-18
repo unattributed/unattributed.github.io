@@ -1,0 +1,28 @@
+---
+layout: default
+title: All Archives
+permalink: /archive/
+---
+
+<article class="archive-index">
+  <h1>Browse by Category</h1>
+
+  <ul class="category-index">
+    {% for category in site.categories %}
+      {% assign name = category[0] %}
+      {% assign posts = category[1] %}
+      {% if posts.size > 1 %}
+        <li>
+          <a href="{{ '/' | append: name | append: '/' | relative_url }}">{{ name | capitalize }}</a>
+          ({{ posts.size }})
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  <div class="archive-nav">
+    <a href="{{ '/' | relative_url }}">← Home</a> ·
+    <a href="#top">↑ Top</a> ·
+    <a href="{{ '/search/' | relative_url }}">Search</a>
+  </div>
+</article>

@@ -1,0 +1,53 @@
+name: CI - Script Tests and Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-scripts:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: ⬇️ Checkout repo
+      uses: actions/checkout@v3
+
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11.2"
+
+    - name: 📦 Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: 🧪 Run Pytest and capture logs
+      run: |
+        export PYTHONPATH=$PYTHONPATH:${{ github.workspace }}/_scripts
+        mkdir -p _tmpbkup/logs/
+        pytest _tests/ --tb=short -v | tee _tmpbkup/logs/pytest.log
+        exit_code=${PIPESTATUS[0]}
+        echo "Pytest exited with code $exit_code"
+        exit $exit_code
+
+    - name: 🚦 Validate script argument parsing
+      run: |
+        for f in _scripts/*.py; do
+          echo "▶️ Testing $f"
+          # Test dry-run flag (common to all scripts)
+          python3 "$f" --dry-run >/dev/null || echo "❌ $f failed basic execution"
+          # Test verbose flag (common to all scripts)
+          python3 "$f" --verbose >/dev/null || echo "❌ $f failed verbose flag"
+        done
+
+    - name: 📤 Upload Pytest log artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-logs
+        path: _tmpbkup/logs/

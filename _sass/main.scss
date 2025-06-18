@@ -1,0 +1,5 @@
+// Main SCSS Imports
+// Using wildcard import for variables to allow direct usage
+@use './variables' as *;
+// Keeping theme namespace to avoid potential conflicts
+@use './theme' as theme;

@@ -1,0 +1,50 @@
+---
+layout: default
+---
+
+<h1>{{ site.title }}</h1>
+
+<ul>
+  <!-- Info Section -->
+  <li>info
+    <ul>
+      <li>{{ site.description }}</li>
+      <li><a href="{{ '/about' | relative_url }}">about</a></li>
+    </ul>
+  </li>
+
+  <!-- Search Link -->
+  <li><a href="{{ '/search' | relative_url }}">search</a></li>
+
+  <!-- All Posts (recent) -->
+  <li>all posts
+    <ul>
+      {%- assign sorted_posts = site.posts | sort: 'date' | reverse -%}
+      {%- for post in sorted_posts limit:5 -%}
+        <li>{{ post.date | date: "%Y-%m-%d" }} <a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+      {%- endfor -%}
+      <li><a href="{{ '/all-posts/' | relative_url }}">See all posts →</a></li>
+    </ul>
+  </li>
+
+  <!-- Category Sections -->
+  {%- assign categories = site.categories | sort -%}
+  {%- for category in categories -%}
+    {%- assign category_name = category[0] -%}
+    {%- assign posts = category[1] | sort: 'date' | reverse -%}
+    {%- assign archive_url = category_name | downcase | replace: ' ', '' | append: '-archive.html' -%}
+    <li>posts - {{ category_name }}
+      <ul>
+        <li>{{ posts[0].date | date: "%Y-%m-%d" }} <a href="{{ posts[0].url | relative_url }}">{{ posts[0].title }}</a></li>
+        <li><a href="{{ archive_url | relative_url }}">See more posts...</a></li>
+      </ul>
+    </li>
+  {%- endfor -%}
+</ul>
+
+<!-- Footer navigation and RSS -->
+<div class="archive-nav">
+  <a href="#top">↑ Top</a> ·
+  <a href="{{ '/search/' | relative_url }}">Search</a> ·
+  <a href="{{ '/feed.xml' | relative_url }}">rss</a>
+</div>

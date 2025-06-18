@@ -1,0 +1,60 @@
+title: unattributed
+description: >-
+  A minimalist dark-themed Jekyll site for security, AI, and system insights.
+baseurl: ""
+url: "https://unattributed.blog"
+
+# Disable default theme to use custom styles
+theme: null
+
+# Output directory
+destination: _site
+
+# Collections configuration for custom category archives
+collections:
+  category_pages:
+    output: true
+    permalink: /:name-archive.html
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Exclude these files and directories from processing
+exclude:
+  - vendor
+  - .venv
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - _site
+  - "**/tmpbkup"
+  - _tmpbkup/
+  - .vscode/
+  - _backup
+  - _scripts/devtools
+  - _scripts/ci
+
+# Sass configuration
+sass:
+  style: compressed
+
+# Markdown processor configuration
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# Defaults for posts
+defaults:
+  -
+    scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: unattributed

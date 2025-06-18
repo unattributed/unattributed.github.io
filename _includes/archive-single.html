@@ -1,0 +1,17 @@
+{% comment %}
+This include is used by all category archive pages to display posts.
+{% endcomment %}
+
+{% for post in site.categories[category_key] | default: [] | sort: "date" | reverse %}
+  <article class="archive-entry">
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p class="archive-meta">
+      {{ post.date | date: "%Y-%m-%d" }}
+      {% if post.author %} | {{ post.author }}{% endif %}
+      {% if post.tags %} | Tags: {{ post.tags | join: ", " }}{% endif %}
+    </p>
+    {% if post.excerpt %}
+      <p>{{ post.excerpt | strip_html | truncatewords: 50 }}</p>
+    {% endif %}
+  </article>
+{% endfor %}

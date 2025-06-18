@@ -1,0 +1,13 @@
+{% unless page.url == "/" or page.url == "/index.html" %}
+<nav style="font-size: 0.9rem; margin-bottom: 1rem;">
+  <a href="{{ '/' | relative_url }}">home</a>
+  {% if page.categories %}
+    {% for cat in page.categories %}
+      &raquo; <a href="/{{ cat | slugify }}-archive/">{{ cat }}</a>
+    {% endfor %}
+  {% endif %}
+  {% if page.title %}
+    &raquo; <span>{{ page.title }}</span>
+  {% endif %}
+</nav>
+{% endunless %}

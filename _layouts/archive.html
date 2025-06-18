@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<h1>Category: {{ page.category | capitalize }}</h1>
+<ul>
+  {%- assign category_name = page.category | downcase -%}
+  {%- assign matching_posts = site.posts | where_exp: "post", "post.categories contains category_name" | uniq -%}
+  {%- for post in matching_posts -%}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      — {{ post.date | date: "%Y-%m-%d" }}
+    </li>
+  {%- endfor -%}
+</ul>
+
+<p><a href="{{ '/' | relative_url }}">← Home</a> · <a href="#top">↑ Top</a> · <a href="/search/">Search</a></p>

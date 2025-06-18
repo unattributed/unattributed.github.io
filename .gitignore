@@ -1,0 +1,42 @@
+# Jekyll build and cache
+_site/
+.jekyll-cache/
+.sass-cache/
+.jekyll-metadata
+.sass-cache/
+
+# Ruby environment
+.bundle/
+vendor/
+.gem/
+
+# Editor & OS temp files
+*.swp
+*.swo
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Scripts, backups, and uploads
+*.zip
+*.tar
+*.sh
+*.log
+*~
+_tmpbkup/
+
+# files for testing, and development
+_scripts/__pycache__
+_scripts/.env
+_scripts/ci/__pycache__
+_scripts/devtools/__pycache__
+_tests/__pycache__
+
+# VS Code workspace files (optional)
+.vscode/
+
+# Python VENV
+.venv/
+
+

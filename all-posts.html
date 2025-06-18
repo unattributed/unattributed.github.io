@@ -1,0 +1,25 @@
+---
+layout: default
+title: All Posts
+permalink: /all-posts/
+---
+
+<article class="all-posts">
+  <h1>All Posts</h1>
+
+  <ul class="post-list">
+    {% assign sorted_posts = site.posts | sort: 'date' | reverse %}
+    {% for post in sorted_posts %}
+      <li>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="archive-nav">
+    <a href="{{ '/' | relative_url }}">← Home</a> ·
+    <a href="#top">↑ Top</a> ·
+    <a href="{{ '/search/' | relative_url }}">Search</a>
+  </div>
+</article>
