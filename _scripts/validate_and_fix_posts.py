@@ -17,7 +17,7 @@ import sys
 import re
 from pathlib import Path
 from datetime import datetime
-from _scripts.jekyll_utilities import (
+from jekyll_utilities import (
     get_standard_parser,
     load_markdown_files_safe,
     write_markdown_file,
