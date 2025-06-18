@@ -18,9 +18,9 @@ collections:
 
 # Plugins
 plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
+#  - jekyll-feed
+#  - jekyll-seo-tag
+#  - jekyll-sitemap
 
 # Exclude these files and directories from processing
 exclude:
