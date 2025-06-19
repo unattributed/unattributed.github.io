@@ -99,25 +99,25 @@ public List<User> findUsers(String column, String value) {
 ```
 
 **Tool Integration:**  
-<table>
+<table style="border-collapse: collapse; width: 100%; margin: 16px 0;">
   <thead>
     <tr>
-      <th>Tool</th>
-      <th>Detection Capability</th>
+      <th style="border: 1px solid lightgrey; padding: 10px 12px; text-align: left;">Tool</th>
+      <th style="border: 1px solid lightgrey; padding: 10px 12px; text-align: left;">Detection Capability</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>OWASP Dependency-Check</td>
-      <td>Identifies vulnerable libraries enabling injection</td>
+      <td style="border: 1px solid lightgrey; padding: 10px 12px;">OWASP Dependency-Check</td>
+      <td style="border: 1px solid lightgrey; padding: 10px 12px;">Identifies vulnerable libraries enabling injection</td>
     </tr>
     <tr>
-      <td>SonarQube</td>
-      <td>Detects concatenated SQL/HQL/JPQL</td>
+      <td style="border: 1px solid lightgrey; padding: 10px 12px;">SonarQube</td>
+      <td style="border: 1px solid lightgrey; padding: 10px 12px;">Detects concatenated SQL/HQL/JPQL</td>
     </tr>
     <tr>
-      <td>Semgrep</td>
-      <td>Custom rules for framework-specific risks</td>
+      <td style="border: 1px solid lightgrey; padding: 10px 12px;">Semgrep</td>
+      <td style="border: 1px solid lightgrey; padding: 10px 12px;">Custom rules for framework-specific risks</td>
     </tr>
   </tbody>
 </table>

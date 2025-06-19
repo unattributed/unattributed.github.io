@@ -64,27 +64,25 @@ graph LR
 ## **3. Attack Scenarios & Historical Vulnerabilities** <a name="attack-scenarios"></a>  
 
 ### **A. Documented Exploits**  
-<table>
+
+<table style="border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
-      <th align="center"><strong>CVE</strong></th>
-      <th align="center"><strong>Attack Vector</strong></th>
-      <th align="center"><strong>Impact</strong></th>
+      <th style="border: 1px solid lightgrey; padding: 8px; text-align: center;"><strong>CVE</strong></th>
+      <th style="border: 1px solid lightgrey; padding: 8px; text-align: center;"><strong>Attack Vector</strong></th>
+      <th style="border: 1px solid lightgrey; padding: 8px; text-align: center;"><strong>Impact</strong></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <tr>
-        <td align="left">CVE-2021-25215</td>
-        <td align="left">Spoofing via stale NS records</td>
-        <td align="left">High</td>
-      </tr>
+      <td style="border: 1px solid lightgrey; padding: 8px; text-align: left;">CVE-2021-25215</td>
+      <td style="border: 1px solid lightgrey; padding: 8px; text-align: left;">Spoofing via stale NS records</td>
+      <td style="border: 1px solid lightgrey; padding: 8px; text-align: left;">High</td>
     </tr>
     <tr>
-      <td align="left">CVE-2022-36537</td>
-      <td align="left">API auth bypass via JWT reuse</td>
-      <td align="left">Critical</td>
-    </tr>
+      <td style="border: 1px solid lightgrey; padding: 8px; text-align: left;">CVE-2022-36537</td>
+      <td style="border: 1px solid lightgrey; padding: 8px; text-align: left;">API auth bypass via JWT reuse</td>
+      <td style="border: 1px solid lightgrey; padding: 8px; text-align: left;">Critical</td>
     </tr>
   </tbody>
 </table>

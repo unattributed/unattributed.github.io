@@ -69,28 +69,28 @@ Patch SQL injection in login form (CVE-2023-1234)
 
 ## A Quick Reference Table  
 
-<table>  
-  <thead>  
-    <tr>  
-      <th>Do This</th>  
-      <th>Not This</th>  
-    </tr>  
-  </thead>  
-  <tbody>  
-    <tr>  
-      <td><code>Add multi-factor auth support</code></td>  
-      <td><code>security stuff</code></td>  
-    </tr>  
-    <tr>  
-      <td><code>Fix buffer overflow in CSV parser</code></td>  
-      <td><code>hope this works</code></td>  
-    </tr>  
-    <tr>  
-      <td><code>Update dependencies (CVE-2024-5678)</code></td>  
-      <td><code>npm install lol</code></td>  
-    </tr>  
-  </tbody>  
-</table>  
+<table style="border-collapse: collapse; width: 100%; margin: 16px 0; font-family: Arial, sans-serif;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid lightgrey; padding: 12px; text-align: left; font-weight: 600;">Do This</th>
+      <th style="border: 1px solid lightgrey; padding: 12px; text-align: left; font-weight: 600;">Not This</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 2px 4px; border-radius: 3px;">Add multi-factor auth support</code></td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 2px 4px; border-radius: 3px;">security stuff</code></td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 2px 4px; border-radius: 3px;">Fix buffer overflow in CSV parser</code></td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 2px 4px; border-radius: 3px;">hope this works</code></td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 2px 4px; border-radius: 3px;">Update dependencies (CVE-2024-5678)</code></td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 2px 4px; border-radius: 3px;">npm install lol</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Final Tip: Follow a Convention  
 If your team uses a standard (like [Conventional Commits](https://www.conventionalcommits.org/)), stick to it. Consistency matters.  

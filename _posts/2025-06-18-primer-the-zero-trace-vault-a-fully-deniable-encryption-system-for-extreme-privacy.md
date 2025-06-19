@@ -71,13 +71,71 @@ shuf -n 5 /usr/share/dict/words | awk 'length($0) > 6' | head -5
 
 ## Threat Mitigation  
 
-| Attack Vector          | Defense                                  |  
-|------------------------|------------------------------------------|  
-| **Brute force**        | 5-word ≈ 80 bits entropy                |  
-| **Device seizure**     | No local container exists               |  
-| **Cloud subpoena**     | Gets only irreversible hash             |  
-| **Coercion**           | Decoy volume with plausible fake data   |  
-| **Keyloggers**         | Tails amnesia + on-screen keyboard      |  
+<div style="font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;">
+  <table style="border-collapse: collapse; width: 100%; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+    <thead>
+      <tr>
+        <th colspan="2" style="padding: 14px; text-align: center; font-size: 18px; font-weight: 600; letter-spacing: 0.5px; border-bottom: 2px solid #e0e0e0;">
+          THREAT MITIGATION STRATEGIES
+        </th>
+      </tr>
+      <tr>
+        <th style="padding: 12px 15px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #e0e0e0; width: 30%;">
+          Attack Vector
+        </th>
+        <th style="padding: 12px 15px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #e0e0e0; width: 70%;">
+          Defense Mechanism
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 12px 15px; border-bottom: 1px solid #eee; font-weight: 600; color: #c0392b; vertical-align: top;">
+          Brute force
+        </td>
+        <td style="padding: 12px 15px; border-bottom: 1px solid #eee; vertical-align: top;">
+          <span style="padding: 4px 8px; border-radius: 4px; font-family: 'Roboto Mono', monospace; display: inline-block; margin: 2px 0;">
+            5-word ≈ 80 bits entropy
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 15px; border-bottom: 1px solid #eee; font-weight: 600; color: #c0392b; vertical-align: top;">
+          Device seizure
+        </td>
+        <td style="padding: 12px 15px; border-bottom: 1px solid #eee; vertical-align: top;">
+          No local container exists
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 15px; border-bottom: 1px solid #eee; font-weight: 600; color: #c0392b; vertical-align: top;">
+          Cloud subpoena
+        </td>
+        <td style="padding: 12px 15px; border-bottom: 1px solid #eee; vertical-align: top;">
+          Gets only irreversible hash
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 15px; border-bottom: 1px solid #eee; font-weight: 600; color: #c0392b; vertical-align: top;">
+          Coercion
+        </td>
+        <td style="padding: 12px 15px; border-bottom: 1px solid #eee; vertical-align: top;">
+          Decoy volume with plausible fake data
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 15px; font-weight: 600; color: #c0392b; vertical-align: top;">
+          Keyloggers
+        </td>
+        <td style="padding: 12px 15px; vertical-align: top;">
+          <span style="padding: 4px 8px; border-radius: 4px; font-family: 'Roboto Mono', monospace; display: inline-block; margin: 2px 0;">
+            Tails amnesia + on-screen keyboard
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> 
 
 ---
 

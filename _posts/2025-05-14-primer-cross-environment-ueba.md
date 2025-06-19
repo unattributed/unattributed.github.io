@@ -84,32 +84,61 @@ Traditional UEBA solutions often treat these as separate silos, creating blind s
 
 ## Implementation Architecture
 
-```plaintext
-┌────────────────────────────────────────────────────────┐
-│                   Data Sources                         │
-│ ┌─────────────┐ ┌─────────────┐ ┌───────────────────┐  │
-│ │  Cloud APIs │ │ On-Prem Logs│ │App Instrumentation│  │
-│ └─────────────┘ └─────────────┘ └───────────────────┘  │
-└───────────────┬─────────────────┬──────────────────────┘
-                │                 │
-                ▼                 ▼
-┌──────────────────────────────────────────────────────┐
-│                Normalization Layer                   │
-│  ┌────────────────────────────────────────────────┐  │
-│  │             Common Event Schema                │  │
-│  │ (OCSF, CEF, or custom organizational schema)   │  │
-│  └────────────────────────────────────────────────┘  │
-└───────────────┬─────────────────┬────────────────────┘
-                │                 │
-                ▼                 ▼
-┌───────────────────────────────────────────────────────┐
-│                 Analysis Engine                       │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────────┐  │
-│  │ Per-Env     │ │ Cross-Env   │ │ Threat Intel    │  │
-│  │ Baselines   │ │ Correlation │ │ Integration     │  │
-│  └─────────────┘ └─────────────┘ └─────────────────┘  │
-└───────────────────────────────────────────────────────┘
-```
+
+<div style="font-family: 'Segoe UI', Roboto, Arial, sans-serif; max-width: 800px; margin: 0 auto; color: #333;">
+  <!-- Data Sources -->
+  <div style="background: #ffffff; border-radius: 10px; padding: 25px; margin-bottom: 25px; text-align: center; border: 2px solid #e1e4e8; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+    <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; letter-spacing: 0.5px;">DATA SOURCES</div>
+    <div style="display: flex; justify-content: space-around; gap: 20px;">
+      <div style="background: #f0f7ff; border-radius: 8px; padding: 15px; width: 30%; border: 2px solid #cce0ff; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <div style="font-weight: 600; color: #0066cc; font-size: 16px;">Cloud APIs</div>
+      </div>
+      <div style="background: #f0fff4; border-radius: 8px; padding: 15px; width: 30%; border: 2px solid #c6f6d5; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <div style="font-weight: 600; color: #0e7f41; font-size: 16px;">On-Prem Logs</div>
+      </div>
+      <div style="background: #f9f0ff; border-radius: 8px; padding: 15px; width: 30%; border: 2px solid #e9c6ff; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <div style="font-weight: 600; color: #7c4dff; font-size: 16px;">App Instrumentation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrows -->
+  <div style="display: flex; justify-content: center; margin: 0 auto 25px; width: 60%;">
+    <div style="text-align: center; width: 50%; font-size: 24px; color: #666;">↓</div>
+    <div style="text-align: center; width: 50%; font-size: 24px; color: #666;">↓</div>
+  </div>
+
+  <!-- Normalization Layer -->
+  <div style="background: #ffffff; border-radius: 10px; padding: 25px; margin-bottom: 25px; text-align: center; border: 2px solid #e1e4e8; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+    <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; letter-spacing: 0.5px;">NORMALIZATION LAYER</div>
+    <div style="background: #fff8e6; border-radius: 8px; padding: 18px; margin: 0 auto; max-width: 90%; border: 2px solid #ffdf99; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+      <div style="font-weight: 600; color: #b35c00; font-size: 16px; margin-bottom: 5px;">Common Event Schema</div>
+      <div style="font-size: 14px; color: #8c8c8c; font-style: italic;">(OCSF, CEF, or custom organizational schema)</div>
+    </div>
+  </div>
+
+  <!-- Arrows -->
+  <div style="display: flex; justify-content: center; margin: 0 auto 25px; width: 60%;">
+    <div style="text-align: center; width: 50%; font-size: 24px; color: #666;">↓</div>
+    <div style="text-align: center; width: 50%; font-size: 24px; color: #666;">↓</div>
+  </div>
+
+  <!-- Analysis Engine -->
+  <div style="background: #ffffff; border-radius: 10px; padding: 25px; text-align: center; border: 2px solid #e1e4e8; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+    <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; letter-spacing: 0.5px;">ANALYSIS ENGINE</div>
+    <div style="display: flex; justify-content: space-around; gap: 20px;">
+      <div style="background: #e6f7ff; border-radius: 8px; padding: 15px; width: 30%; border: 2px solid #91d5ff; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <div style="font-weight: 600; color: #005c99; font-size: 16px;">Per-Env Baselines</div>
+      </div>
+      <div style="background: #e6ffed; border-radius: 8px; padding: 15px; width: 30%; border: 2px solid #87e8de; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <div style="font-weight: 600; color: #00784d; font-size: 16px;">Cross-Env Correlation</div>
+      </div>
+      <div style="background: #fff1f0; border-radius: 8px; padding: 15px; width: 30%; border: 2px solid #ffccc7; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <div style="font-weight: 600; color: #cf1322; font-size: 16px;">Threat Intel Integration</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Technical Implementation Considerations
 

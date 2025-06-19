@@ -215,14 +215,57 @@ mvn veracode:scan
 
 ## Full CWE Top 25 Coverage Matrix
 
-| CWE-ID | Vulnerability                  | SAST Detection                 | DAST Detection                | SCA Detection               |
-|--------|--------------------------------|--------------------------------|--------------------------------|-----------------------------|
-| 787    | Out-of-Bounds Write            | Veracode CWE 787               | Burp Fuzzing                   | Veracode SCA Memory Checks  |
-| 79     | XSS                            | FindSecBugs XSS                | Burp DOM XSS Scanner           | Veracode SCA Web Checks     |
-| 89     | SQL Injection                  | SpotBugs SQL_INJECTION_JDBC    | ZAP SQLi Tests                 | Veracode SCA Database Checks|
-| 20     | Input Validation               | SonarQube S2631                | Burp Input Fuzzing             | Veracode SCA Data Flow      |
-| ...    | *(Complete matrix in Appendix)*|                                 |                                |                             |
-
+<table style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th colspan="5" style="border: 1px solid lightgrey; padding: 8px; text-align: center;">Vulnerability Detection Matrix</th>
+    </tr>
+    <tr>
+      <th style="border: 1px solid lightgrey; padding: 8px; text-align: left;">CWE-ID</th>
+      <th style="border: 1px solid lightgrey; padding: 8px; text-align: left;">Vulnerability</th>
+      <th style="border: 1px solid lightgrey; padding: 8px; text-align: left;">SAST Detection</th>
+      <th style="border: 1px solid lightgrey; padding: 8px; text-align: left;">DAST Detection</th>
+      <th style="border: 1px solid lightgrey; padding: 8px; text-align: left;">SCA Detection</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 8px;">787</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">Out-of-Bounds Write</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">Veracode CWE 787</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">Burp Fuzzing</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">Veracode SCA Memory Checks</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 8px;">79</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">XSS</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">FindSecBugs XSS</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">Burp DOM XSS Scanner</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">Veracode SCA Web Checks</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 8px;">89</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">SQL Injection</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">SpotBugs SQL_INJECTION_JDBC</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">ZAP SQLi Tests</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">Veracode SCA Database Checks</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 8px;">20</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">Input Validation</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">SonarQube S2631</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">Burp Input Fuzzing</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;">Veracode SCA Data Flow</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 8px;">...</td>
+      <td style="border: 1px solid lightgrey; padding: 8px;"><em>(Complete matrix in Appendix)</em></td>
+      <td style="border: 1px solid lightgrey; padding: 8px;"></td>
+      <td style="border: 1px solid lightgrey; padding: 8px;"></td>
+      <td style="border: 1px solid lightgrey; padding: 8px;"></td>
+    </tr>
+  </tbody>
+</table>
 ---
 
 ## CI/CD Pipeline Implementation

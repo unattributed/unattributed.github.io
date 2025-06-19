@@ -88,36 +88,36 @@ When testing for SQL injection, determining the underlying database is crucial f
 2. **Send to Repeater** (`Ctrl+R`).  
 3. **Modify parameter** to trigger SQL errors:  
 
-<table>
-   <thead>
-      <tr>
-         <th>Database</th>
-         <th>Payload</th>
-         <th>Error Characteristics (Check HTTP Response)</th>
-      </tr>
-   </thead>
-   <tbody>
-      <tr>
-         <td><strong>MySQL</strong></td>
-         <td><code>id=1'</code></td>
-         <td>- <code>You have an error in your SQL syntax...</code></td>
-      </tr>
-      <tr>
-         <td><strong>PostgreSQL</strong></td>
-         <td><code>id=1'</code></td>
-         <td>- <code>PG::SyntaxError: ERROR: unterminated quoted string</code></td>
-      </tr>
-      <tr>
-         <td><strong>Oracle</strong></td>
-         <td><code>id=1'</code></td>
-         <td>- <code>ORA-01756: quoted string not properly terminated</code></td>
-      </tr>
-      <tr>
-         <td><strong>SQL Server</strong></td>
-         <td><code>id=1'</code></td>
-         <td>- <code>Unclosed quotation mark after the character string</code></td>
-      </tr>
-   </tbody>
+<table style="border-collapse: collapse; width: 100%; margin: 16px 0; font-family: Arial, sans-serif;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid lightgrey; padding: 12px; text-align: left; font-weight: 600;">Database</th>
+      <th style="border: 1px solid lightgrey; padding: 12px; text-align: left; font-weight: 600;">Payload</th>
+      <th style="border: 1px solid lightgrey; padding: 12px; text-align: left; font-weight: 600;">Error Characteristics (Check HTTP Response)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 12px; font-weight: 600;">MySQL</td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 4px 6px; border-radius: 3px; font-family: monospace;">id=1'</code></td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 4px 6px; border-radius: 3px; font-family: monospace;">You have an error in your SQL syntax...</code></td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 12px; font-weight: 600;">PostgreSQL</td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 4px 6px; border-radius: 3px; font-family: monospace;">id=1'</code></td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 4px 6px; border-radius: 3px; font-family: monospace;">PG::SyntaxError: ERROR: unterminated quoted string</code></td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 12px; font-weight: 600;">Oracle</td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 4px 6px; border-radius: 3px; font-family: monospace;">id=1'</code></td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 4px 6px; border-radius: 3px; font-family: monospace;">ORA-01756: quoted string not properly terminated</code></td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid lightgrey; padding: 12px; font-weight: 600;">SQL Server</td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 4px 6px; border-radius: 3px; font-family: monospace;">id=1'</code></td>
+      <td style="border: 1px solid lightgrey; padding: 12px;"><code style="padding: 4px 6px; border-radius: 3px; font-family: monospace;">Unclosed quotation mark after the character string</code></td>
+    </tr>
+  </tbody>
 </table>
 
 
