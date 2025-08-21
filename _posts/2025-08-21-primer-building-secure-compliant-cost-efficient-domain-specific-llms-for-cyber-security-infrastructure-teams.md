@@ -528,7 +528,7 @@ print("Inference:", inference_cost(1_000_000), "USD/month")
 <https://colab.research.google.com/github/unattributed/llm-guide/blob/main/domain_llm_quickstart.ipynb>
 
 > *The notebook is currently in a private repo.*  
-> [Request access here](mailto:you@unattributed.blog?subject=Colab%20Notebook%20Request) or clone the repo locally.
+> [Request access here](mailto:shopkeeper@unattributed.blog?subject=Colab%20Notebook%20Request) or clone the repo locally.
 > Runs on **free T4**; fine-tunes Mistral-7B LoRA in 25 min on 5 k SOC alerts.
 
 ---
@@ -584,8 +584,4 @@ print("Inference:", inference_cost(1_000_000), "USD/month")
 - NVIDIA AI Enterprise Deployment Guide  
 - unattributed.blog threat-hunting primers
 
----
-
-> Got questions or need a tailored architecture diagram?  
-> Open an issue at <https://github.com/unattributed/llm-guide> or DM @unattributed on Mastodon.
 ```
