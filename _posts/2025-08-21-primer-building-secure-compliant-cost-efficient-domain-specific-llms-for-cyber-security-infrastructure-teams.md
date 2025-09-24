@@ -5,7 +5,6 @@ date: 2025-08-21
 author: unattributed
 categories: [ai, llm, security-operations, cloud-security, self-hosting]
 tags: [llama3, mistral, phi-3, lora, aws, azure, gcp, fedramp, gdpr, hipaa, cobalt-strike, threat-hunting]
-toc: true
 ---
 
 > TL;DR  

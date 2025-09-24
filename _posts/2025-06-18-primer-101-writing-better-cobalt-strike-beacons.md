@@ -236,5 +236,3 @@ this is your 101 primer.
 - Hunt for Azure AD token storage in engagements.  
 
 ---
-
-

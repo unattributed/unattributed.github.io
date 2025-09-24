@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Elastic AI: Yara rules primer for assumed-breach "
+title: "Elastic AI: Yara rules primer for assumed-breach"
 date: 2025-05-06
 author: unattributed
 categories: [elasticai, yara]

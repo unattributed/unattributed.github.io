@@ -4,9 +4,8 @@ title: "Primer - Bypassing Cloudflare Protection in Red Team Engagements"
 date: 2025-06-18
 author: unattributed
 categories: [redteaming, cobalt-strike, cloudflare]
-tags: [redteaming, cobalt-strike,cloudflare]
+tags: [redteaming, cobalt-strike, cloudflare]
 ---
-
 
 ### **Bypassing Cloudflare Protection in Red Team Engagements**  
 Cloudflare is a common obstacle for red teams because it hides the real IP of a target, provides WAF (Web Application Firewall) protection, and can block malicious traffic. To simulate a real-world attack, you’ll need to bypass Cloudflare to reach the actual infrastructure.  
@@ -102,6 +101,4 @@ Once you bypass Cloudflare:
 ---
 
 ### **Final Thoughts**  
-Bypassing Cloudflare requires **patience, OSINT, and creative evasion techniques**. For red team engagements, document each step to show the client how an attacker could slip past their defenses.  
-
-
+Bypassing Cloudflare requires **patience, OSINT, and creative evasion techniques**. For red team engagements, document each step to show the client how an attacker could slip past their defenses.
