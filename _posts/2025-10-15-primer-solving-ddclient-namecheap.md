@@ -6,6 +6,7 @@ author: unattributed
 categories: [openbsd, ddns]
 tags: [ddclient, namecheap, openbsd]
 ---
+
 # Solving ddclient updates for multiple domains on Namecheap [OpenBSD specific, reproducible]
 
 I run several domains on Namecheap, on a single OpenBSD host to keep A records in sync with my WAN IP. I started with a single `/etc/ddclient/ddclient.conf` that listed all domains and hosts. Only the last domain updated. The logs insisted everything was fine, but authoritative DNS did not move for the earlier domains.
