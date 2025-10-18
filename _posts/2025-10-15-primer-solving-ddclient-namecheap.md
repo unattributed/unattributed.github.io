@@ -4,7 +4,7 @@ title: "Primer ddclient multi-domain support"
 date: 2025-10-15
 author: unattributed
 categories: [openbsd, ddns]
-tags: [ddclient, namecheap, openbsd]
+tags: [ddclient, namecheap, openbsd, isp]
 ---
 
 # Solving ddclient updates for multiple domains on Namecheap [OpenBSD specific, reproducible]
