@@ -5,7 +5,9 @@ date: 2025-10-20
 author: unattributed
 categories: [openbsd, email]
 tags: [postfix, brevo, amavis, tls, sasl]
------------------------------------------
+---
+
+--------------------------------------
 
 # Using Brevo for Your Self-Hosted OpenBSD Email: A Concise, Reproducible Walkthrough
 
@@ -201,4 +203,3 @@ doas tail -f -n 0 /var/log/maillog | egrep -i 'postfix/.+smtp|brevo|status=|queu
 ## Closing
 
 The minimal set of changes above produces a secure, encrypted relay path from OpenBSD Postfix through Brevo, while keeping local Amavis hops happy and leaving the rest of your iRedMail stack untouched. From here, improve deliverability by authenticating your sending domain in Brevo (SPF/DKIM) and adding a DMARC policy—then watch your logs for the expected `250 2.0.0 OK`.
-
