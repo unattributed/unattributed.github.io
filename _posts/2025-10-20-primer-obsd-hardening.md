@@ -268,4 +268,6 @@ An OpenBSD server exposed to the internet starts from a position of strength. Th
 This approach has proven itself in practice: a secure default configuration, minimal ongoing maintenance, and clear operational visibility.
 
 For any service not covered here, start with the man page. It's the most current, accurate, and authoritative source available, written by the people who build the system you're running.
-```
+
+*Someday ... really some day* I will write a complete A-Z 0-1 guide on every aspect of using Openbsd as an edge device in an unfriendly world, someday.
+
