@@ -56,8 +56,8 @@ VULTR_API_KEY="REDACTED_YOUR_VULTR_BEARER_TOKEN"
 VULTR_API_URL="https://api.vultr.com/v2"
 
 # Optional mail summary (via /usr/sbin/sendmail)
-MAIL_NOTIFY="blah@unattributed.blog"
-MAIL_FROM="blah@unattributed.blog"
+MAIL_NOTIFY="@YOUR_EMAIL_ADDRESS"
+MAIL_FROM="@YOUR_EMAIL_ADDRESS"
 
 # Optional: skip apex '@' for these (e.g., GitHub Pages)
 GITHUB_PAGES_DOMAINS="unattributed.blog"
