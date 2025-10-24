@@ -1,39 +1,28 @@
 ---
 layout: post
-title: "Primer: multi-domain dynamic DNS on Vultr (no ddclient)"
+title: "Primer: multi-domain dynamic DNS on Vultr (no ddclient) — hardened & audited"
 date: 2025-10-24
 author: unattributed
 categories: [openbsd, ddns]
-tags: [vultr, dyn-dns, openbsd, isp, python]
+tags: [vultr, dyn-dns, openbsd, isp, python, security]
 ---
 
-# Solving dynamic DNS on Vultr for multiple domains (OpenBSD, reproducible)
+# Solving dynamic DNS on Vultr for multiple domains 
 
-I run several domains on Vultr's DNS from a single OpenBSD host and need A/AAAA records to track my WAN IP. `ddclient` doesn't support Vultr's DNS API, and the one-off scripts I found were single-domain only. This post documents a production-ready, multi-domain updater with exact file paths, permissions, logging + rotation, cron wiring, and verification.
+I run several domains on Vultr’s DNS from a single OpenBSD host and need A/AAAA records to track my WAN IP. `ddclient` doesn’t support Vultr’s DNS API, and most DIY snippets only touch one zone. This post is the **hardened** version of my updater: **safe WAN IP detection**, **strict file perms**, **stable logging with rotation**, **cron wiring that actually works**, plus **built‑in tests** so you can prove it’s doing the right thing.
 
-It targets OpenBSD, Vultr DNS v2 API, repeated host labels across domains (for example `@`, `mail`, `obsd1`), and safely **skips GitHub Pages apex** records when requested. IPv4-only by default; IPv6 supported in a separate mode.
-
-## tl;dr
-
-A small Python 3 program calls Vultr's v2 DNS API. It reads two `.env` files (credentials/settings; domain/hosts), supports **multiple domains**, **per-domain TTLs**, a **cache** to skip no-op runs, a **GitHub Pages apex guard**, **/var/log** logging with `newsyslog` rotation, and simple flags:
-
-- default: IPv4 A-records only
-- `--ipv6-only`: AAAA only
-- `--force`: ignore cache
-- `--status`, `--clear-cache`, `--touch`: inspect or manage cache
-- `-v` / `-q`: verbosity
+Targets: OpenBSD, Vultr DNS v2 API, repeated labels across zones (e.g., `@`, `mail`, `obsd1`), GitHub Pages apex protection. IPv4-only by default; IPv6 supported with a flag.
 
 ---
 
 ## Why not ddclient?
 
-- Vultr's managed DNS isn't supported by ddclient.
-- Most DIY scripts update a single record or a single zone.
-- I needed: *N* domains, the same labels in each zone, reproducible file paths, robust logging, and a guard for GitHub Pages apex.
+- Vultr’s managed DNS isn’t supported by ddclient.
+- I need multiple zones with identical labels, reproducible paths & perms, logging in `/var/log/`, and a **GitHub Pages apex guard**.
 
 ---
 
-## Install prerequisites
+## Prereqs
 
 ```sh
 # OpenBSD
@@ -43,9 +32,9 @@ doas pkg_add python%3 py3-requests
 
 ---
 
-## Configuration files
+## Configuration
 
-Two `.env` files live under `~/.config/vultr/` for whichever account is running the job (below I show **foo**). These are simple `KEY=VALUE` shell-style files (quotes OK).
+Two shell‑style `.env` files live under `~/.config/vultr/` for the user who runs the job (below I show **foo**). Quotes are OK.
 
 ### `~/.config/vultr/api.env`
 
@@ -55,17 +44,21 @@ Two `.env` files live under `~/.config/vultr/` for whichever account is running 
 VULTR_API_KEY="REDACTED_YOUR_VULTR_BEARER_TOKEN"
 VULTR_API_URL="https://api.vultr.com/v2"
 
-# Optional mail summary (via /usr/sbin/sendmail)
-MAIL_NOTIFY="@YOUR_EMAIL_ADDRESS"
-MAIL_FROM="@YOUR_EMAIL_ADDRESS"
+# Email summary (optional; via /usr/sbin/sendmail)
+MAIL_NOTIFY="ops@example.io"
+MAIL_FROM="ops@example.io"
 
-# Optional: skip apex '@' for these (e.g., GitHub Pages)
+# Optional: skip apex '@' for these domains (e.g., GitHub Pages)
 GITHUB_PAGES_DOMAINS="unattributed.blog"
+
+# Optional: only accept IPv4 from these CIDRs (space- or comma-separated).
+# Leave empty to accept any public IPv4.
+ALLOWED_IPV4_CIDRS="124.121.0.0/16"
 
 # Default TTL (seconds)
 DEFAULT_TTL="300"
 
-# (Optional explicit pointers; helpful if this script runs as root)
+# Optional explicit pointers (handy if cron runs as root)
 VULTR_API_ENV=/home/foo/.config/vultr/api.env
 VULTR_DDNS_ENV=/home/foo/.config/vultr/ddns.env
 ```
@@ -73,70 +66,71 @@ VULTR_DDNS_ENV=/home/foo/.config/vultr/ddns.env
 ### `~/.config/vultr/ddns.env`
 
 ```sh
-# Which zones to update (space-separated)
-VULTR_DOMAINS="example1.com example2.io example3.ca example4.energy example5.com unattributed.blog example6.com"
+# Zones to update (space-separated)
+VULTR_DOMAINS="example1.com example2.com example3.ca example4.energy example5.com unattributed.blog example6.com"
 
 # Host labels per domain (space or comma separated). Use "@" for apex.
 VULTR_HOSTS_example1.com="@ mail obsd1"
-VULTR_HOSTS_example2.io="@ mail obsd1"
+VULTR_HOSTS_example2.com="@ mail obsd1"
 VULTR_HOSTS_example3.ca="@ mail obsd1"
 VULTR_HOSTS_example4.energy="@ mail obsd1"
 VULTR_HOSTS_example5.com="@ mail obsd1"
-VULTR_HOSTS_unattributed.blog="mail obsd1"   # no apex here; GH Pages guard also protects
+VULTR_HOSTS_unattributed.blog="mail obsd1"   # no apex; GH Pages guard also protects
 VULTR_HOSTS_example6.com="@ mail obsd1"
 
-# TTLs (optional). You can also use underscore-style keys; both are accepted.
+# TTLs (optional). Underscore or dot forms both work.
 VULTR_TTL_DEFAULT=300
-#VULTR_TTL_example_com=180
+#VULTR_TTL_blackbagsecurity_com=180
 ```
 
-> **Note:** Keys may use dots or underscores (both work). The script normalizes either style.
+**Permissions: lock them down.**
+
+```sh
+chmod 700 ~/.config/vultr
+chmod 600 ~/.config/vultr/*.env
+```
+If you run from **root’s cron**, you can move these to `/etc/vultr/` (`root:wheel`, `600`) or keep them under `/home/foo` but make them **root‑owned**.
 
 ---
 
-## The updater script
+## The updater
 
-Save the script as `/usr/local/sbin/vultr_ddns_multi.py` and make it executable. (I keep the canonical copy in git, but this post assumes you've placed it on the host.) Features:
+Installed as `/usr/local/sbin/vultr_ddns_multi.py`. Highlights:
 
-- IPv4-only by default; `--ipv6-only` mode for AAAA
-- Match-and-update (or create) records for each label in each domain
-- Per-domain TTLs
-- Tiny cache in `~/.cache/vultr-ddns/` to skip no-op runs
-- GitHub Pages apex guard: skips `@` for domains listed in `GITHUB_PAGES_DOMAINS`
-- Logging to `/var/log/vultr_ddns.log` with fallback to `~/.cache/vultr-ddns/vultr_ddns.log`
-- Mail summary when `MAIL_FROM` and `MAIL_NOTIFY` are set
-- Root/cron friendly: will honor `VULTR_API_ENV` / `VULTR_DDNS_ENV` if set **in the environment or inside the files**
+- Default: **IPv4 (A)** only; add `--ipv6-only` for AAAA.
+- **Consensus IP** across multiple echo services; **public‑only**.
+- **Create or update** each requested label in each domain; per‑domain **TTL**.
+- **Apex guard**: skips `@` for domains listed in `GITHUB_PAGES_DOMAINS`.
+- **Cache** in `~/.cache/vultr-ddns/` to skip no‑op runs.
+- **Logs** to `/var/log/vultr_ddns.log`; fallback to `~/.cache/vultr-ddns/vultr_ddns.log` (forced `0600`).
+- **Email summary** when `MAIL_FROM` + `MAIL_NOTIFY` are valid.
+- **API pinning** to `api.vultr.com` unless `--allow-non-vultr-api` is set.
+- **Diagnostics:** `--self-test`, `--diagnose-ipv4`, `--diagnose-ipv6`.
 
-Install and test:
+Install & smoke test:
 
 ```sh
 doas install -o root -g wheel -m 0755 vultr_ddns_multi.py /usr/local/sbin/vultr_ddns_multi.py
 
-# First run (verbose, IPv4-only)
-vultr_ddns_multi.py -v
+# Built-in unit checks (consensus/email/API pin)
+/usr/local/sbin/vultr_ddns_multi.py --self-test  # expect: SELF-TEST: OK
 
-# Force re-check even if IP hasn't changed (ignores cache)
-vultr_ddns_multi.py --force -v
+# See echo-site votes and consensus (no DNS writes)
+/usr/local/sbin/vultr_ddns_multi.py --diagnose-ipv4
 ```
 
-Sample "all green" output:
+Dry run (no writes), then real run:
 
-```
-Mode: IPv4-only
-IPv4=203.0.113.44
-[example.com] hosts: @, mail, obsd1 (ttl=300)
-[example.com] OK: A @ = 203.0.113.44 (ttl=300)
-[example.com] OK: A mail = 203.0.113.44 (ttl=300)
-[example.com] OK: A obsd1 = 203.0.113.44 (ttl=300)
-...
-No changes (records already up-to-date).
+```sh
+/usr/local/sbin/vultr_ddns_multi.py --force -n -v
+/usr/local/sbin/vultr_ddns_multi.py -q
 ```
 
 ---
 
 ## Logging & rotation
 
-The script appends to `/var/log/vultr_ddns.log` (fallbacks to `~/.cache/vultr-ddns/vultr_ddns.log` if permissions deny). On OpenBSD, add a `newsyslog` rule so it rotates daily and keeps 7 gzips:
+The script appends to `/var/log/vultr_ddns.log`. On OpenBSD, rotate daily and keep 7 gzips:
 
 ```
 # /etc/newsyslog.conf
@@ -144,58 +138,45 @@ The script appends to `/var/log/vultr_ddns.log` (fallbacks to `~/.cache/vultr-dd
 /var/log/vultr_ddns.log      root:wheel   640   7      *     @T00   Z
 ```
 
-You likely already have this hourly cron entry, which is sufficient:
-
-```
-0 * * * * /usr/bin/newsyslog
-```
+If you run as a non‑root user and can’t write `/var/log`, the script falls back to `~/.cache/vultr-ddns/vultr_ddns.log` with perms **0600**.
 
 ---
 
-## Cron
+## Cron that works (PATH / shebang)
 
-If you run it as **foo**:
+On OpenBSD, `python3` is in **/usr/local/bin**. If your script uses `#!/usr/bin/env python3`, make sure cron’s PATH includes `/usr/local/bin`.
 
-```sh
-crontab -e
-*/5 * * * * /usr/local/sbin/vultr_ddns_multi.py -q
-```
-
-If you run it as **root** but want it to read foo's env files, either export these:
-
+**Option A (edit root’s crontab PATH):**
 ```cron
-VULTR_API_ENV=/home/foo/.config/vultr/api.env
-VULTR_DDNS_ENV=/home/foo/.config/vultr/ddns.env
+PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin
 */5 * * * * /usr/local/sbin/vultr_ddns_multi.py -q
 ```
 
-…or rely on the fact that the script will follow `VULTR_API_ENV`/`VULTR_DDNS_ENV` if those keys exist **inside `/etc/vultr/*.env` or `/home/foo/.config/vultr/*.env`**.
+**Option B (pin the shebang to absolute Python):**
+```sh
+doas sed -i.bak '1s|/usr/bin/env python3|/usr/local/bin/python3|' /usr/local/sbin/vultr_ddns_multi.py
+```
+
+Simulate cron’s environment once (sanity check):
+
+```sh
+doas env -i SHELL=/bin/sh PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin HOME=/var/log   /usr/local/sbin/vultr_ddns_multi.py -q
+```
+
+Restart cron only if you want to be sure:
+```sh
+doas rcctl restart cron
+doas rcctl status cron
+```
 
 ---
 
-## IPv6 (optional)
+## Verification (auth NS, not cache)
 
-If your ISP gives you public IPv6, add a separate cron for AAAA:
-
-```sh
-*/5 * * * * /usr/local/sbin/vultr_ddns_multi.py --ipv6-only -q
-```
-
-You can also refresh the caches without touching the API:
+Query Vultr’s authoritative nameserver directly:
 
 ```sh
-vultr_ddns_multi.py --touch -v
-vultr_ddns_multi.py --ipv6-only --touch -v
-```
-
----
-
-## Verifying against Vultr's auth NS
-
-I always check the authoritative nameservers, not the resolver cache:
-
-```sh
-for d in example1.com example2.io example3.ca example4.energy example5.com unattributed.blog example6.com; do
+for d in example1.com example2.com example3.ca example4.energy example5.com unattributed.blog example6.com; do
   echo "=== $d"
   drill -t -Q @ns1.vultr.com A $d           2>/dev/null || true
   drill -t -Q @ns1.vultr.com A mail.$d      2>/dev/null || true
@@ -203,42 +184,72 @@ for d in example1.com example2.io example3.ca example4.energy example5.com unatt
 done
 ```
 
-You should see the WAN IP reflected on each host label.
+---
+
+## Built‑in tests & operations
+
+- **Self‑test** (offline logic: consensus, email regex, API pin):
+  ```sh
+  /usr/local/sbin/vultr_ddns_multi.py --self-test  # expect OK
+  ```
+
+- **Diagnose IP** (show raw votes + the chosen IP):
+  ```sh
+  vultr_ddns_multi.py --diagnose-ipv4
+  # vultr_ddns_multi.py --diagnose-ipv6
+  ```
+
+- **Status / cache control**:
+  ```sh
+  vultr_ddns_multi.py --status
+  vultr_ddns_multi.py --touch -v              # refresh cache only (no API)
+  vultr_ddns_multi.py --clear-cache
+  ```
+
+- **Safety rails**:
+  - `--allow-non-vultr-api` (only if you truly need to override API URL pinning)
+  - `--no-gh-guard` (temporarily allow apex updates on a GH Pages domain)
+  - `--ipv6-only` (operate on AAAA records only)
 
 ---
 
-## Troubleshooting
+## Threat model & mitigations (concise)
 
-- **`VULTR_API_KEY missing`** — confirm the key is in `api.env`. If running as root via cron, ensure the script can find the right `api.env` (see *Env discovery* section).
-- **`No host list for domain`** — add a `VULTR_HOSTS_*` line for that zone (either dotted or underscore style).
-- **Mail not sending** — fix `MAIL_FROM` (`ops@example.io` style) and ensure `/usr/sbin/sendmail` is present.
-- **Log not in /var/log/** — run via root (or syslog method), or accept the fallback in `~/.cache/vultr-ddns/`.
-- **GitHub Pages apex** — list the domain in `GITHUB_PAGES_DOMAINS` and do **not** put `@` for that zone in `ddns.env`.
+- **Stolen API key → DNS takeover**  
+  *Mitigate:* env files `600`, owner‑only; (optionally) move to `/etc/vultr/` root‑owned.
 
----
+- **Tampered IP‑echo → site hijack**  
+  *Mitigate:* consensus across multiple services; only accept **public** IPs; optional CIDR allowlist.
 
-## Why this design works
+- **Config tampering (when run as root)**  
+  *Mitigate:* store configs root‑owned or run from the owning user’s cron.
 
-- **Idempotent**: Re-runs are cheap (`OK:` lines, no API calls on unchanged IP via cache).
-- **Explicit**: All paths and flags are plain text files you can commit to infra-config.
-- **Safe**: Apex guard prevents clobbering GitHub Pages; per-domain TTLs avoid surprises.
-- **Portable**: Only needs Python 3 + `requests` and `sendmail` for the optional email.
+- **API URL exfiltration**  
+  *Mitigate:* pin to `api.vultr.com` by default; require `--allow-non-vultr-api` to override.
 
----
+- **Email header/newline shenanigans**  
+  *Mitigate:* validate addresses before calling `sendmail`.
 
-## Appendix: flags cheat sheet
-
-- `-n, --dry-run` — print intended actions, no API writes
-- `-q, --quiet` / `-v, --verbose` — console verbosity
-- `-d, --domain DOMAIN` — restrict to one or more zones
-- `--ipv6-only` — operate on AAAA records (no A)
-- `--force` — ignore IP cache; always check/update
-- `--status` — show cached IPs
-- `--clear-cache` — delete cache files
-- `--touch` — refresh cache from current public IP(s) without calling Vultr API
-- `--no-gh-guard` — temporarily allow apex updates for GH Pages-listed domains
+- **Log snooping**  
+  *Mitigate:* fallback log forced to `0600`; `/var/log/vultr_ddns.log` is `640` root:wheel; rotate with `newsyslog`.
 
 ---
 
-If you want the exact script I used here, it's installed as `/usr/local/sbin/vultr_ddns_multi.py` in my setup and lives alongside the `api.env` and `ddns.env` examples above.
-**Attribution:** unattributed read Andy J Smith's github script ddns.py before I wrote 1 ln of code, it's available on https://github.com/andyjsmith/Vultr-Dynamic-DNS which is well written and works perfectly!
+## Flags cheat sheet
+
+- `-n, --dry-run` — print intended actions, no API writes  
+- `-q, --quiet` / `-v, --verbose` — console verbosity  
+- `-d, --domain DOMAIN` — restrict to one or more zones  
+- `--ipv6-only` — AAAA only  
+- `--force` — ignore IP cache; always check/update  
+- `--status` — show cached IPs  
+- `--clear-cache` — delete cache files  
+- `--touch` — refresh caches from current public IP(s), no API calls  
+- `--diagnose-ipv4`, `--diagnose-ipv6` — show echo votes + consensus  
+- `--self-test` — offline unit checks (consensus/email/API pin)  
+- `--no-gh-guard` — allow apex updates for GH Pages‑listed domains  
+- `--allow-non-vultr-api` — opt‑out of API URL pinning (not recommended)
+
+---
+
+**Attribution:** Andy J Smith’s `ddns.py` informed this work: <https://github.com/andyjsmith/Vultr-Dynamic-DNS>.
