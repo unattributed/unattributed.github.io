@@ -3,6 +3,7 @@ description: >-
   A minimalist dark-themed Jekyll site for security, AI, and system insights.
 baseurl: ""
 url: "https://unattributed.blog"
+timezone: Asia/Bangkok
 
 # Set default theme to use custom styles
 theme: unattributed-theme
