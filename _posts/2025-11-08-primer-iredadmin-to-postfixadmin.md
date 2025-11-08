@@ -53,8 +53,8 @@ $CONF['database_name'] = 'vmail';
 $CONF['database_prefix'] = '';
 $CONF['encrypt'] = 'md5crypt';
 $CONF['default_language'] = 'en';
-$CONF['admin_email'] = 'postmaster@mail.blackbagsecurity.com';
-$CONF['postfix_admin_url'] = 'https://mail.blackbagsecurity.com/postfixadmin';
+$CONF['admin_email'] = 'postmaster@mail.example.net';
+$CONF['postfix_admin_url'] = 'https://mail.example.net/postfixadmin';
 ?>
 ```
 
@@ -131,9 +131,9 @@ Run the upgrade again until no SQL exceptions appear:
 ### Step 8: Correcting Postfix Domain Overlap
 
 Postfix logged repetitive warnings:  
-`warning: do not list domain mail.blackbagsecurity.com in BOTH mydestination and virtual_mailbox_domains`
+`warning: do not list domain mail.example.net in BOTH mydestination and virtual_mailbox_domains`
 
-To eliminate these, edit `/etc/postfix/main.cf` and ensure `mail.blackbagsecurity.com` appears **only** in `virtual_mailbox_domains`, not in `mydestination`.
+To eliminate these, edit `/etc/postfix/main.cf` and ensure `mail.example.net` appears **only** in `virtual_mailbox_domains`, not in `mydestination`.
 
 Reload Postfix:
 
@@ -143,8 +143,8 @@ Reload Postfix:
 
 ### Step 9: Verification
 
-- Access `https://mail.blackbagsecurity.com/postfixadmin/`  
-- Log in with `postmaster@mail.blackbagsecurity.com` and verified credentials.  
+- Access `https://mail.example.net/postfixadmin/`  
+- Log in with `postmaster@mail.example.net` and verified credentials.  
 - Confirm that listing domains, aliases, and mailboxes succeeds.  
 - MariaDB query examples:
 
