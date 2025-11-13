@@ -548,7 +548,7 @@ if __name__ == "__main__":
 
 ## 4. Phase 3: Traditional Infrastructure Testing with AI Context
 
-This phase applies proven infrastructure and API testing techniques but with a sharp focus on the context of AI systems. The goal is to ensure that the underlying platform hosting the AI models is as secure as the models themselves. For senior professionals, this means recognizing that AI endpoints are high-value targets that may have different traffic patterns and business logic. This phase validates that standard security controls—authentication, authorization, rate limiting, and input validation—are correctly implemented and effective against both traditional attacks and new, cost-based threats aimed at AI resources.
+This phase applies proven infrastructure and API testing techniques but with a sharp focus on the context of AI systems. The goal is to ensure that the underlying platform hosting the AI models is as secure as the models themselves. For senior professionals, this means recognizing that AI endpoints are high-value targets that may have different traffic patterns and business logic. This phase validates that standard security controls—authentication, authorization, rate limiting, and input validation are correctly implemented and effective against both traditional attacks and new, cost-based threats aimed at AI resources.
 
 ### 4.1 API Security Testing for AI Endpoints
 
@@ -2402,4 +2402,4 @@ export TARGET_DOMAIN=target.com
 
 ---
 
-*All tools and techniques in this document should be used only with proper authorization and in compliance with applicable laws and regulations. Ensure you have explicit written permission before testing any systems.*
+*All tools and techniques in this document should be used only with proper authorization and in compliance with applicable laws and regulations. Ensure you have explicit written permission before testing any systems.* *Code within this document is zombie-code, but available upon request (perhaps on your usage)*
