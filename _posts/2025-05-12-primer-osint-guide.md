@@ -7,8 +7,8 @@ categories: [osint]
 tags: [osint, kali, parrotos]
 ---
 
-# **The OSINT Guide for Penetration Testers: 
-**Mapping ACME Corporation**  
+# **The OSINT Guide for Penetration Testers**: 
+*Mapping ACME Corporation*  
 
 ---
 
