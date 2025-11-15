@@ -7,9 +7,6 @@ categories: [ai, llm, security-operations, cloud-security, self-hosting]
 tags: [llama3, mistral, phi-3, lora, aws, azure, gcp, fedramp, gdpr, hipaa, cobalt-strike, threat-hunting]
 ---
 
-> TL;DR  
-> This 12 k-word field manual shows security engineers and infrastructure teams **how to train, harden, and run** their own LLMs—without leaking data, breaking the bank, or violating GDPR/HIPAA/FSTEC. Copy-paste configs, region-specific blueprints, and Colab-ready code included.
-
 ---
 
 ## 0. Why You Should Care
