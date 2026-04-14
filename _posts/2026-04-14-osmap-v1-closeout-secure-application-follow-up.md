@@ -5,7 +5,6 @@ date: 2026-03-28
 author: unattributed
 categories: [email-security, self-hosting, openbsd, zero-trust, infrastructure]
 tags: [osmap, openbsd, webmail, secure-development, rust, owasp, owasp-asvs, testing]
-excerpt: "OSMAP Version 1 is now closed out against its current security boundary. This follow-up explains what that actually means, what nearly went wrong during development, why secure software demands more than OWASP checklists, and how security design has to be turned into executable evidence."
 ---
 
 ## OSMAP V1 Closeout, and the Hard Reality of Writing Secure Software
