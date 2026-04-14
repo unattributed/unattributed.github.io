@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "OSMAP V1 Closeout, and the Hard Reality of Writing Secure Software"
-date: 2026-03-28
+date: 2026-04-14
 author: unattributed
 categories: [email-security, self-hosting, openbsd, zero-trust, infrastructure]
 tags: [osmap, openbsd, webmail, secure-development, rust, owasp, owasp-asvs, testing]
