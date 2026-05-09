@@ -491,4 +491,3 @@ The operational claims in the post are based on your final step evidence, which 
 [1]: https://unattributed.blog/?utm_source=chatgpt.com "unattributed"
 [2]: https://download.nvidia.com/XFree86/Linux-x86_64/580.126.09/README/xconfigoptions.html?utm_source=chatgpt.com "Appendix B. X Config Options - Index of / - NVIDIA"
 [3]: https://www.man7.org/linux/man-pages/man8/systemd-sysv-generator.8.html?utm_source=chatgpt.com "systemd-sysv-generator(8) - Linux manual page"
-
