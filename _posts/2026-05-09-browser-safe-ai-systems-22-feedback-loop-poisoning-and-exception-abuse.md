@@ -11,7 +11,7 @@ tags: [browser-safe-ai, feedback-poisoning, exceptions, governance]
 
 This post continues the Browser-Safe AI Systems series by focusing on feedback-loop poisoning and exception abuse. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 21]({% post_url 2026-05-09-browser-safe-ai-systems-21-fail-open-versus-fail-closed-security-decisions %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 23]({% post_url 2026-05-09-browser-safe-ai-systems-23-secure-architecture-principles-for-browser-safe-ai %})
+Series navigation: [Previous: Part 21]({% post_url 2026-05-09-browser-safe-ai-systems-21-fail-open-versus-fail-closed-security-decisions %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 23]({% post_url 2026-05-09-browser-safe-ai-systems-23-secure-architecture-principles-for-browser-safe-ai %})
 
 * * *
 

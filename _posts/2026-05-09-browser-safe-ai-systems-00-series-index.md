@@ -57,9 +57,9 @@ The series is written for four audiences:
 
 ## Supporting Documents
 
-* [Appendix B: Vendor Due-Diligence Questionnaire]({% post_url 2026-05-09-browser-safe-ai-systems-vendor-due-diligence-questionnaire %})
-* [Appendix C: Rules of Engagement Template]({% post_url 2026-05-09-browser-safe-ai-systems-rules-of-engagement-template %})
-* [Appendix D: Glossary]({% post_url 2026-05-09-browser-safe-ai-systems-glossary %})
+* [Appendix B: Vendor Due-Diligence Questionnaire]({% post_url 2026-05-09-browser-safe-ai-systems-33-vendor-due-diligence-questionnaire %})
+* [Appendix C: Rules of Engagement Template]({% post_url 2026-05-09-browser-safe-ai-systems-34-rules-of-engagement-template %})
+* [Appendix D: Glossary]({% post_url 2026-05-09-browser-safe-ai-systems-35-glossary %})
 
 ## Series Principle
 

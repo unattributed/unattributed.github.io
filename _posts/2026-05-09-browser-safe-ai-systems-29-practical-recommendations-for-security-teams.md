@@ -11,7 +11,7 @@ tags: [browser-safe-ai, security-teams, operations, governance]
 
 This post continues the Browser-Safe AI Systems series by focusing on practical recommendations for security teams. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 28]({% post_url 2026-05-09-browser-safe-ai-systems-28-governance-questions-for-vendors-and-customers %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 30]({% post_url 2026-05-09-browser-safe-ai-systems-30-practical-recommendations-for-vendors-and-developers %})
+Series navigation: [Previous: Part 28]({% post_url 2026-05-09-browser-safe-ai-systems-28-governance-questions-for-vendors-and-customers %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 30]({% post_url 2026-05-09-browser-safe-ai-systems-30-practical-recommendations-for-vendors-and-developers %})
 
 * * *
 

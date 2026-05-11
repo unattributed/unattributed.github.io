@@ -11,7 +11,7 @@ tags: [browser-safe-ai, evasive-phishing, delayed-content, scanner-evasion]
 
 This post continues the Browser-Safe AI Systems series by focusing on delayed content, region-gated pages, and evasive phishing. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 14]({% post_url 2026-05-09-browser-safe-ai-systems-14-unicode-homograph-and-visual-spoofing-attacks %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 16]({% post_url 2026-05-09-browser-safe-ai-systems-16-ai-verdict-manipulation-and-false-negative-risk %})
+Series navigation: [Previous: Part 14]({% post_url 2026-05-09-browser-safe-ai-systems-14-unicode-homograph-and-visual-spoofing-attacks %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 16]({% post_url 2026-05-09-browser-safe-ai-systems-16-ai-verdict-manipulation-and-false-negative-risk %})
 
 * * *
 

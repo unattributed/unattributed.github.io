@@ -11,7 +11,7 @@ tags: [browser-safe-ai, python, test-harness, automation, red-team]
 
 This post continues the Browser-Safe AI Systems series by focusing on building a practical python test harness. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 24]({% post_url 2026-05-09-browser-safe-ai-systems-24-red-team-testing-methodology-for-ai-browser-controls %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 26]({% post_url 2026-05-09-browser-safe-ai-systems-26-evidence-collection-what-must-be-logged-and-verified %})
+Series navigation: [Previous: Part 24]({% post_url 2026-05-09-browser-safe-ai-systems-24-red-team-testing-methodology-for-ai-browser-controls %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 26]({% post_url 2026-05-09-browser-safe-ai-systems-26-evidence-collection-what-must-be-logged-and-verified %})
 
 * * *
 

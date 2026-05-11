@@ -11,7 +11,7 @@ tags: [browser-safe-ai, false-negatives, ai-verdict, red-team]
 
 This post continues the Browser-Safe AI Systems series by focusing on ai verdict manipulation and false negative risk. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 15]({% post_url 2026-05-09-browser-safe-ai-systems-15-delayed-content-region-gated-pages-and-evasive-phishing %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 17]({% post_url 2026-05-09-browser-safe-ai-systems-17-false-positives-alert-fatigue-and-trust-erosion %})
+Series navigation: [Previous: Part 15]({% post_url 2026-05-09-browser-safe-ai-systems-15-delayed-content-region-gated-pages-and-evasive-phishing %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 17]({% post_url 2026-05-09-browser-safe-ai-systems-17-false-positives-alert-fatigue-and-trust-erosion %})
 
 * * *
 

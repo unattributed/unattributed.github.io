@@ -11,7 +11,7 @@ tags: [browser-safe-ai, false-positives, alert-fatigue, soc]
 
 This post continues the Browser-Safe AI Systems series by focusing on false positives, alert fatigue, and trust erosion. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 16]({% post_url 2026-05-09-browser-safe-ai-systems-16-ai-verdict-manipulation-and-false-negative-risk %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 18]({% post_url 2026-05-09-browser-safe-ai-systems-18-data-handling-risks-screenshots-dom-urls-and-user-context %})
+Series navigation: [Previous: Part 16]({% post_url 2026-05-09-browser-safe-ai-systems-16-ai-verdict-manipulation-and-false-negative-risk %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 18]({% post_url 2026-05-09-browser-safe-ai-systems-18-data-handling-risks-screenshots-dom-urls-and-user-context %})
 
 * * *
 

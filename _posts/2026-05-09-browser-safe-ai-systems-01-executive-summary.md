@@ -11,7 +11,7 @@ tags: [browser-safe-ai, ai-security, browser-security, security-architecture, re
 
 This opens the Browser-Safe AI Systems series. The series treats browser-fed AI as a security pipeline, where hostile web content enters an interpretation layer, model output can influence policy, and analysts need evidence they can trust.
 
-Series navigation: [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 02]({% post_url 2026-05-09-browser-safe-ai-systems-02-why-browser-safe-ai-systems-matter-now %})
+Series navigation: [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 02]({% post_url 2026-05-09-browser-safe-ai-systems-02-why-browser-safe-ai-systems-matter-now %})
 
 * * *
 

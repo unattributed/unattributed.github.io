@@ -11,7 +11,7 @@ tags: [browser-safe-ai, indirect-prompt-injection, web-security, llm-security]
 
 This post continues the Browser-Safe AI Systems series by focusing on indirect prompt injection through web pages. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 08]({% post_url 2026-05-09-browser-safe-ai-systems-08-practical-attack-classes-against-ai-backed-browser-security %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 10]({% post_url 2026-05-09-browser-safe-ai-systems-10-hostile-dom-hidden-text-and-metadata-manipulation %})
+Series navigation: [Previous: Part 08]({% post_url 2026-05-09-browser-safe-ai-systems-08-practical-attack-classes-against-ai-backed-browser-security %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 10]({% post_url 2026-05-09-browser-safe-ai-systems-10-hostile-dom-hidden-text-and-metadata-manipulation %})
 
 * * *
 

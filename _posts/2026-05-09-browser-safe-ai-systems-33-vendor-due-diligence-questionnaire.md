@@ -11,7 +11,7 @@ tags: [browser-safe-ai, vendor-risk, due-diligence, ai-governance, privacy]
 
 This supporting document belongs with the Browser-Safe AI Systems series. It is designed as a practical reference that can be used alongside the main sections when reviewing vendors, scoping assessments, or standardizing language across analyst, red-team, developer, and stakeholder discussions.
 
-Series navigation: [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %})
+Series navigation: [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %})
 
 * * *
 

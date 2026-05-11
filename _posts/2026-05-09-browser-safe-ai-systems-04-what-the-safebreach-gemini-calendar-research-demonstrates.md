@@ -11,7 +11,7 @@ tags: [browser-safe-ai, safebreach, gemini, prompt-injection, agentic-ai]
 
 This post continues the Browser-Safe AI Systems series by focusing on what the safebreach gemini calendar research demonstrates. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 03]({% post_url 2026-05-09-browser-safe-ai-systems-03-from-browser-isolation-to-ai-assisted-browser-defense %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 05]({% post_url 2026-05-09-browser-safe-ai-systems-05-why-this-research-applies-to-browser-safe-ai-systems %})
+Series navigation: [Previous: Part 03]({% post_url 2026-05-09-browser-safe-ai-systems-03-from-browser-isolation-to-ai-assisted-browser-defense %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 05]({% post_url 2026-05-09-browser-safe-ai-systems-05-why-this-research-applies-to-browser-safe-ai-systems %})
 
 * * *
 

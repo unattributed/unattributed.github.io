@@ -11,7 +11,7 @@ tags: [browser-safe-ai, privacy, retention, redaction, tenant-isolation]
 
 This post continues the Browser-Safe AI Systems series by focusing on privacy, retention, redaction, and tenant isolation. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 18]({% post_url 2026-05-09-browser-safe-ai-systems-18-data-handling-risks-screenshots-dom-urls-and-user-context %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 20]({% post_url 2026-05-09-browser-safe-ai-systems-20-model-output-handling-why-ai-verdicts-must-be-constrained %})
+Series navigation: [Previous: Part 18]({% post_url 2026-05-09-browser-safe-ai-systems-18-data-handling-risks-screenshots-dom-urls-and-user-context %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 20]({% post_url 2026-05-09-browser-safe-ai-systems-20-model-output-handling-why-ai-verdicts-must-be-constrained %})
 
 * * *
 

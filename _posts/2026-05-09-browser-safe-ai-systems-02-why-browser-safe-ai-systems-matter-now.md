@@ -11,7 +11,7 @@ tags: [browser-safe-ai, ai-security, browser-security, phishing, identity, saas]
 
 This post continues the Browser-Safe AI Systems series by focusing on why browser-safe ai systems matter now. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 01]({% post_url 2026-05-09-browser-safe-ai-systems-01-executive-summary %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 03]({% post_url 2026-05-09-browser-safe-ai-systems-03-from-browser-isolation-to-ai-assisted-browser-defense %})
+Series navigation: [Previous: Part 01]({% post_url 2026-05-09-browser-safe-ai-systems-01-executive-summary %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 03]({% post_url 2026-05-09-browser-safe-ai-systems-03-from-browser-isolation-to-ai-assisted-browser-defense %})
 
 * * *
 

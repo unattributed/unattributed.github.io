@@ -11,7 +11,7 @@ tags: [browser-safe-ai, data-handling, screenshots, dom, privacy]
 
 This post continues the Browser-Safe AI Systems series by focusing on data handling risks: screenshots, dom, urls, and user context. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 17]({% post_url 2026-05-09-browser-safe-ai-systems-17-false-positives-alert-fatigue-and-trust-erosion %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 19]({% post_url 2026-05-09-browser-safe-ai-systems-19-privacy-retention-redaction-and-tenant-isolation %})
+Series navigation: [Previous: Part 17]({% post_url 2026-05-09-browser-safe-ai-systems-17-false-positives-alert-fatigue-and-trust-erosion %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 19]({% post_url 2026-05-09-browser-safe-ai-systems-19-privacy-retention-redaction-and-tenant-isolation %})
 
 * * *
 

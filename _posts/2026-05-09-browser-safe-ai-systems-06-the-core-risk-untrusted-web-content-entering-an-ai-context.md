@@ -11,7 +11,7 @@ tags: [browser-safe-ai, untrusted-input, ai-context, prompt-injection]
 
 This post continues the Browser-Safe AI Systems series by focusing on the core risk: untrusted web content entering an ai context. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 05]({% post_url 2026-05-09-browser-safe-ai-systems-05-why-this-research-applies-to-browser-safe-ai-systems %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %}) | [Next: Part 07]({% post_url 2026-05-09-browser-safe-ai-systems-07-defining-poison-packets-for-browser-ai %})
+Series navigation: [Previous: Part 05]({% post_url 2026-05-09-browser-safe-ai-systems-05-why-this-research-applies-to-browser-safe-ai-systems %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %}) | [Next: Part 07]({% post_url 2026-05-09-browser-safe-ai-systems-07-defining-poison-packets-for-browser-ai %})
 
 * * *
 

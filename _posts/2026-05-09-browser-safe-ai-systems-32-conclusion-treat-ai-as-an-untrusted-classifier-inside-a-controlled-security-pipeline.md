@@ -11,7 +11,7 @@ tags: [browser-safe-ai, conclusion, security-architecture, ai-security]
 
 This post continues the Browser-Safe AI Systems series by focusing on conclusion: treat ai as an untrusted classifier inside a controlled security pipeline. The goal is to keep the discussion useful for analysts who investigate alerts, red teams who validate controls, developers who build the pipeline, and technical stakeholders who own risk decisions.
 
-Series navigation: [Previous: Part 31]({% post_url 2026-05-09-browser-safe-ai-systems-31-how-this-research-changes-browser-security-validation %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-series-index %})
+Series navigation: [Previous: Part 31]({% post_url 2026-05-09-browser-safe-ai-systems-31-how-this-research-changes-browser-security-validation %}) | [Series index]({% post_url 2026-05-09-browser-safe-ai-systems-00-series-index %})
 
 * * *
 
