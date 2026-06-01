@@ -55,7 +55,25 @@ The series is written for four audiences:
 * [Part 31: How This Research Changes Browser Security Validation]({% post_url 2026-05-09-browser-safe-ai-systems-31-how-this-research-changes-browser-security-validation %})
 * [Part 32: Conclusion: Treat AI as an Untrusted Classifier Inside a Controlled Security Pipeline]({% post_url 2026-05-09-browser-safe-ai-systems-32-conclusion-treat-ai-as-an-untrusted-classifier-inside-a-controlled-security-pipeline %})
 
+## Practical Lab Track
+
+The practical lab track turns the research series into an evidence-backed training path for browser-based AI security validation. It is written for practitioners who need reproducible tests, safe synthetic targets, artifact-backed findings, and reviewable evidence rather than claims based only on model output.
+
+This track now maps to the local AI Browser Security Test Suite workshop sequence: Labs 00 through 12, a deliberately weak local `ollama-webui` target, synthetic markers, browser and proxy evidence, artifact manifests, SHA256 indexes, and a target-backed capstone evidence package. It remains local-only, synthetic-only, authorized-only training material, not production security validation or permission to test third-party systems.
+
+* [Practical Lab Track Overview]({% post_url 2026-05-24-browser-safe-ai-systems-practical-lab-track-overview %})
+* [Part 33: From Research Series to Evidence-Backed Training Program]({% post_url 2026-05-24-browser-safe-ai-systems-33-from-research-series-to-evidence-backed-training-program %})
+* [Part 34: Lab Architecture for Browser-Based AI Security Testing]({% post_url 2026-05-24-browser-safe-ai-systems-34-lab-architecture-for-browser-based-ai-security-testing %})
+* [Part 35: Building Safe Synthetic Browser-AI Attack Cases]({% post_url 2026-05-24-browser-safe-ai-systems-35-building-safe-synthetic-browser-ai-attack-cases %})
+* [Part 36: DOM, Rendered Page, Screenshot, and Frame-Tree Evidence]({% post_url 2026-05-24-browser-safe-ai-systems-36-dom-rendered-page-screenshot-and-frame-tree-evidence %})
+* [Part 37: Testing AI Verdict Manipulation Without Creating Abuse Tooling]({% post_url 2026-05-24-browser-safe-ai-systems-37-testing-ai-verdict-manipulation-without-creating-abuse-tooling %})
+* [Part 38: Analyst Evidence Review and SOC Usefulness]({% post_url 2026-05-24-browser-safe-ai-systems-38-analyst-evidence-review-and-soc-usefulness %})
+* [Part 39: Vendor Due-Diligence Testing for Browser-Based AI Controls]({% post_url 2026-05-24-browser-safe-ai-systems-39-vendor-due-diligence-testing-for-browser-based-ai-controls %})
+* [Part 40: Capstone Lab, End-to-End Browser-AI Control Validation]({% post_url 2026-05-24-browser-safe-ai-systems-40-capstone-lab-end-to-end-browser-ai-control-validation %})
+
 ## Supporting Documents
+
+The following documents support the original research series and the practical lab track. They are appendices, not replacements for the practical lab overview or Parts 33 through 40.
 
 * [Appendix B: Vendor Due-Diligence Questionnaire]({% post_url 2026-05-09-browser-safe-ai-systems-33-vendor-due-diligence-questionnaire %})
 * [Appendix C: Rules of Engagement Template]({% post_url 2026-05-09-browser-safe-ai-systems-34-rules-of-engagement-template %})
