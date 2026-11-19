@@ -51,10 +51,16 @@ jobs:
         env:
           JEKYLL_ENV: production
 
+      - name: Package Pages artifact
+        run: tar --dereference --hard-dereference --directory _site -cvf "$RUNNER_TEMP/pages-artifact.tar" .
+
       - name: Upload build artifact
-        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          path: ./_site
+          name: github-pages
+          path: ${{ runner.temp }}/pages-artifact.tar
+          if-no-files-found: error
+          retention-days: 1
 
   # Deployment job
   deploy:
