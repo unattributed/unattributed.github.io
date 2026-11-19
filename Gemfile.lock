@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/unattributed/unattributed-theme.git
-  revision: 8a8a73d292d3a02b245fb105b8184a1be736ebb4
+  revision: 14817381e186fce8d00569b4702a239b7dc9f63b
   specs:
     unattributed-theme (1.0.0)
       jekyll (>= 3.8, < 5.0)
@@ -10,13 +10,13 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.9.0)
+    addressable (2.9.2)
       public_suffix (>= 2.0.2, < 8.0)
     base64 (0.3.0)
-    bigdecimal (4.1.2)
+    bigdecimal (4.1.3)
     colorator (1.1.0)
-    concurrent-ruby (1.3.7)
-    csv (3.3.5)
+    concurrent-ruby (1.3.8)
+    csv (3.3.7)
     em-websocket (0.5.3)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0)
@@ -24,14 +24,14 @@ GEM
     ffi (1.17.4)
     ffi (1.17.4-x86_64-linux-gnu)
     forwardable-extended (2.6.0)
-    google-protobuf (4.34.1)
+    google-protobuf (4.36.2)
       bigdecimal
       rake (~> 13.3)
-    google-protobuf (4.34.1-x86_64-linux-gnu)
+    google-protobuf (4.36.2-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
     http_parser.rb (0.8.1)
-    i18n (1.14.8)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     jekyll (4.4.1)
       addressable (~> 2.4)
@@ -52,23 +52,23 @@ GEM
       safe_yaml (~> 1.0)
       terminal-table (>= 1.8, < 4.0)
       webrick (~> 1.7)
-    jekyll-feed (0.17.0)
+    jekyll-feed (0.18.0)
       jekyll (>= 3.7, < 5.0)
     jekyll-sass-converter (3.1.0)
       sass-embedded (~> 1.75)
-    jekyll-seo-tag (2.9.0)
+    jekyll-seo-tag (2.9.1)
       jekyll (>= 3.8, < 5.0)
     jekyll-sitemap (1.4.0)
       jekyll (>= 3.7, < 5.0)
     jekyll-watch (2.2.1)
       listen (~> 3.0)
-    json (2.19.5)
-    kramdown (2.5.2)
+    json (2.21.2)
+    kramdown (2.6.1)
       rexml (>= 3.4.4)
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.4)
-    listen (3.10.0)
+    listen (3.10.1)
       logger
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -84,10 +84,10 @@ GEM
     rexml (3.4.4)
     rouge (4.7.0)
     safe_yaml (1.0.5)
-    sass-embedded (1.99.0)
+    sass-embedded (1.108.2)
       google-protobuf (~> 4.31)
-      rake (>= 13)
-    sass-embedded (1.99.0-x86_64-linux-gnu)
+      rake (~> 13.3)
+    sass-embedded (1.108.2-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
@@ -106,4 +106,4 @@ DEPENDENCIES
   unattributed-theme!
 
 BUNDLED WITH
-   2.6.8
+   2.6.7
