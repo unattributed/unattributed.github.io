@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/unattributed/unattributed-theme.git
-  revision: 14817381e186fce8d00569b4702a239b7dc9f63b
+  revision: 208c324f1af314485bb18d00aec472bf46572d11
   specs:
     unattributed-theme (1.0.0)
       jekyll (>= 3.8, < 5.0)
